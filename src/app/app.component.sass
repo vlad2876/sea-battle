@@ -1,10 +1,21 @@
+@mixin font
+  font-family: 'Oxygen', sans-serif
+  font-size: 20px
+  font-weight: bold
+
 nav
   background: #24252A
+  text-align: center
   li, a
-    margin: 5px
+    @include font
+    margin: 10px 15px
     color: white
     text-decoration: none
     display: inline-block
+    &:hover
+      color: #A9B4C4
+
+
 
 
 
