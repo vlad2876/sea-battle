@@ -1,0 +1,48 @@
+@import "../sea-battle/src/app/colors"
+
+.field
+  max-width: 100%
+  left: 0
+  right: 0
+  margin: 25px auto 0
+  border-spacing: 0
+
+  .fieldColumns
+    border: 1px solid $fieldBorder
+    min-width: 80px
+    height: 50px
+    background-color: $fieldColumnsColor
+
+  .shipRow
+    @include shipRowBackground
+    height: 150px
+    border: 1px solid $fieldBorder
+    width: 80px
+
+  .aimRow
+    height: 50px
+    border: 1px solid $fieldBorder
+    width: 80px
+    background-color: $aimRowColor
+
+.fieldSize
+  display: flex
+  align-items: center
+  justify-content: center
+  margin-top: 50px
+
+  .rowsInput, .columnsInput
+    width: 80px
+    margin: 0px 10px
+    padding: 5px
+    border: 2px solid $sizeInputsBorder
+    border-radius: 10px
+    text-align: center
+
+  .setSizeButton
+    padding: 5px
+    background: $sizeBtnBackground
+    border: 2px solid $sizeInputsBorder
+    border-radius: 10px
+
+

@@ -1,17 +1,21 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from "@angular/forms";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { StatsComponent } from './stats/stats.component';
-import { AboutComponent } from './about/about.component';
+import { HomeComponent } from './components/home/home.component';
+import { StatisticsComponent } from './components/statistics/statistics.component';
+import { AboutComponent } from './components/about/about.component';
 import {RouterModule, Routes} from "@angular/router";
-import { NotFoundComponent } from './not-found/not-found.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { FieldComponent } from './components/home/field/field.component';
+import { ShipsComponent } from './components/home/ships/ships.component';
+import { AimComponent } from './components/home/aim/aim.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
-  {path: 'stats', component: StatsComponent},
+  {path: 'stats', component: StatisticsComponent},
   {path: 'about', component: AboutComponent},
   {path: '**', component: NotFoundComponent},
 ]
@@ -21,14 +25,18 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     HomeComponent,
-    StatsComponent,
+    StatisticsComponent,
     AboutComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    FieldComponent,
+    ShipsComponent,
+    AimComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
