@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AimComponent } from './aim.component';
+import { SightComponent } from './sight.component';
 
 describe('AimComponent', () => {
-  let component: AimComponent;
-  let fixture: ComponentFixture<AimComponent>;
+  let component: SightComponent;
+  let fixture: ComponentFixture<SightComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AimComponent ]
+      declarations: [ SightComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AimComponent);
+    fixture = TestBed.createComponent(SightComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

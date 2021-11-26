@@ -1,0 +1,14 @@
+<div>
+  <table class="game-area">
+    <td class="ship-row" [colSpan]="td.length">
+      <home-ship></home-ship>
+    </td>
+    <tr class="game-area-row" *ngFor="let row of tr">
+      <td class="game-area-column" *ngFor="let col of td">
+      </td>
+    </tr>
+    <td class="sight-row" [colSpan]="td.length">
+      <home-sight></home-sight>
+    </td>
+  </table>
+</div>
