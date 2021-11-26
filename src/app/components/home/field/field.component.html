@@ -1,5 +1,4 @@
 <div>
-  <div>
     <table class="field">
       <td class="shipRow" [colSpan]="td.length">
         <home-ships></home-ships>
@@ -12,12 +11,4 @@
         <home-aim></home-aim>
       </td>
     </table>
-  </div>
-  <div class="fieldSize">
-    <p>Number of rows:</p>
-    <input class="rowsInput" type="number" (keydown.enter)="setFieldSize()" [(ngModel)]="rows">
-    <p>Number of columns:</p>
-    <input class="columnsInput" type="number" placeholder="Number of columns..." (keydown.enter)="setFieldSize()" [(ngModel)]="columns">
-    <button class="setSizeButton" (click)="setFieldSize()">Set size</button>
-  </div>
 </div>
