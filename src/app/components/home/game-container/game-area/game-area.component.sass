@@ -1,26 +1,13 @@
 @import "../../../../colors"
 
 .game-area
-  max-width: 100%
-  left: 0
-  right: 0
-  margin: 10px auto 0
   border-spacing: 0
 
   .game-area-column
     border: 1px solid $game-area-border
-    min-width: 80px
+    width: 70px
     height: 50px
-    background-color: $game-area-columns-color
+    background: $game-area-columns-color
 
-  .ship-row
-    @include ship-row-background
-    height: 150px
-    border: 1px solid $game-area-border
-    width: 80px
-
-  .sight-row
-    height: 50px
-    border: 1px solid $game-area-border
-    width: 80px
-    background: $sight-row-color
+  .shot-column
+    background: $shot-column-background

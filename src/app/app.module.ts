@@ -9,9 +9,12 @@ import { StatisticsComponent } from './components/statistics/statistics.componen
 import { AboutComponent } from './components/about/about.component';
 import {RouterModule, Routes} from "@angular/router";
 import { NotFoundComponent } from './components/not-found/not-found.component';
-import { FieldComponent } from './components/home/field/field.component';
-import { ShipsComponent } from './components/home/ships/ships.component';
-import { AimComponent } from './components/home/aim/aim.component';
+import { GameAreaComponent } from './components/home/game-container/game-area/game-area.component';
+import { ShipComponent } from './components/home/game-container/skyline-area/ship/ship.component';
+import { SightComponent } from './components/home/game-container/sight-area/sight/sight.component';
+import { GameContainerComponent } from './components/home/game-container/game-container.component';
+import { SkylineAreaComponent } from './components/home/game-container/skyline-area/skyline-area.component';
+import { SightAreaComponent } from './components/home/game-container/sight-area/sight-area.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -20,7 +23,6 @@ const appRoutes: Routes = [
   {path: '**', component: NotFoundComponent},
 ]
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,9 +30,12 @@ const appRoutes: Routes = [
     StatisticsComponent,
     AboutComponent,
     NotFoundComponent,
-    FieldComponent,
-    ShipsComponent,
-    AimComponent,
+    GameAreaComponent,
+    ShipComponent,
+    SightComponent,
+    GameContainerComponent,
+    SkylineAreaComponent,
+    SightAreaComponent,
   ],
   imports: [
     BrowserModule,
