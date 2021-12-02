@@ -9,7 +9,7 @@ import { StatisticsComponent } from './components/statistics/statistics.componen
 import { AboutComponent } from './components/about/about.component';
 import {RouterModule, Routes} from "@angular/router";
 import { NotFoundComponent } from './components/not-found/not-found.component';
-import { GameAreaComponent } from './components/home/game-container/game-area/game-area.component';
+import { SeaAreaComponent } from './components/home/game-container/sea-area/sea-area.component';
 import { ShipComponent } from './components/home/game-container/skyline-area/ship/ship.component';
 import { SightComponent } from './components/home/game-container/sight-area/sight/sight.component';
 import { GameContainerComponent } from './components/home/game-container/game-container.component';
@@ -30,7 +30,7 @@ const appRoutes: Routes = [
     StatisticsComponent,
     AboutComponent,
     NotFoundComponent,
-    GameAreaComponent,
+    SeaAreaComponent,
     ShipComponent,
     SightComponent,
     GameContainerComponent,

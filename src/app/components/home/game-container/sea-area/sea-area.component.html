@@ -1,0 +1,9 @@
+<div>
+  <table class="game-area">
+    <tr class="game-area-row" *ngFor="let row of cellsCount[0]">
+      <td class="game-area-column" [class.shot-column]="row.active && col.active"
+          *ngFor="let col of cellsCount[1]">
+      </td>
+    </tr>
+  </table>
+</div>

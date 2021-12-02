@@ -1,9 +1,0 @@
-<div>
-  <table class="game-area">
-    <tr class="game-area-row" *ngFor="let row of tr">
-      <td class="game-area-column" [class.shot-column]="row.selected === true && col.selected === true"
-          *ngFor="let col of td">
-      </td>
-    </tr>
-  </table>
-</div>
