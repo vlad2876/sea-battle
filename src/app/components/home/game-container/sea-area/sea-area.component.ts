@@ -24,9 +24,7 @@ export class SeaAreaComponent implements OnInit {
 
     this.seaAreaCells.forEach(f => {
       for (let i = 0; i < this.columnsCount; i++) {
-        f[i] = {
-          active: false
-        }
+        f[i] = new SeaAreaCell(false)
       }
     })
 
