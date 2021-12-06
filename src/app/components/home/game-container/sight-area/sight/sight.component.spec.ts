@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SightComponent } from './sight.component';
 
-describe('AimComponent', () => {
+describe('SightComponent', () => {
   let component: SightComponent;
   let fixture: ComponentFixture<SightComponent>;
 

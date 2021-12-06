@@ -10,32 +10,34 @@ export class SeaAreaComponent implements OnInit {
   columnsCount: number = 15;
 
   readonly activeRowIndex: number = 9;
-  readonly activeColumnIndex: number = 0;
+  readonly activeCellIndex: number = 0;
 
-  // @ts-ignore
-  cellsCount: SeaAreaProperties[[]] = [[], []];
+  seaAreaCells: SeaAreaCell[][] = [];
 
   constructor() {
   }
 
   ngOnInit() {
     for (let i = 0; i < this.rowsCount; i++) {
-      this.cellsCount[0][i] = {
-        active: false
-      }
+      this.seaAreaCells.push([])
     }
 
-    for (let i = 0; i < this.columnsCount; i++) {
-      this.cellsCount[1][i] = {
-        active: false
+    this.seaAreaCells.forEach(f => {
+      for (let i = 0; i < this.columnsCount; i++) {
+        f[i] = {
+          active: false
+        }
       }
-    }
+    })
 
-    this.cellsCount[0][this.activeRowIndex].active = true;
-    this.cellsCount[1][this.activeColumnIndex].active = true;
+    this.seaAreaCells[this.activeRowIndex][this.activeCellIndex] = new SeaAreaCell(true);
   }
 }
 
-class SeaAreaProperties {
+class SeaAreaCell {
   active: boolean = false;
+
+  constructor(active: boolean) {
+    this.active = active;
+  }
 }

@@ -1,7 +1,9 @@
 @import "../../../../styles/colors"
 
 .skyline-area
-  @include ship-row-background
+  background: -webkit-linear-gradient($ship-row-gradient)
+  background: -moz-linear-gradient($ship-row-gradient)
+  background: linear-gradient($ship-row-gradient)
   border: 1px solid $game-area-border
 
   .big-ship

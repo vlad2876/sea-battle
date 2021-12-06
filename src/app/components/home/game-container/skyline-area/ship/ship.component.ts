@@ -6,8 +6,7 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./ship.component.sass']
 })
 export class ShipComponent implements OnInit {
-  @Input() bigShipSelected: boolean = false;
-  @Input() smallShipSelected: boolean = false;
+  @Input() SelectedShip: string = '';
 
   constructor() { }
 
