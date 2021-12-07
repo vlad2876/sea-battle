@@ -6,11 +6,11 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./ship.component.sass']
 })
 export class ShipComponent implements OnInit {
-  @Input() SelectedShip: string = '';
+  @Input() ShipType: string = '';
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit() {
   }
 
 }

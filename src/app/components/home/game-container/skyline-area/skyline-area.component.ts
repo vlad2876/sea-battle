@@ -7,17 +7,18 @@ import {Component, OnInit} from '@angular/core';
 })
 export class SkylineAreaComponent implements OnInit {
 
-  ShipsList = ShipsList;
+  shipType = new Map();
 
   constructor() {
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.shipType.set(ShipType[0], 'big-ship.png')
+      .set(ShipType[1], 'small-ship.jpg');
   }
-
 }
 
-enum ShipsList {
-  BigShip = 'big-ship.png',
-  SmallShip = 'small-ship.jpg'
+enum ShipType {
+  BigShip,
+  SmallShip
 }

@@ -9,7 +9,7 @@ export class SightAreaComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit() {
   }
 
 }

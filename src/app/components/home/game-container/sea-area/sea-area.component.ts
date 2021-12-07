@@ -10,7 +10,7 @@ export class SeaAreaComponent implements OnInit {
   columnsCount: number = 15;
 
   readonly activeRowIndex: number = 9;
-  readonly activeCellIndex: number = 0;
+  readonly activeColumnIndex: number = 0;
 
   seaAreaCells: SeaAreaCell[][] = [];
 
@@ -20,15 +20,15 @@ export class SeaAreaComponent implements OnInit {
   ngOnInit() {
     for (let i = 0; i < this.rowsCount; i++) {
       this.seaAreaCells.push([])
+
+      this.seaAreaCells.forEach(f => {
+        for (let i = 0; i < this.columnsCount; i++) {
+          f[i] = new SeaAreaCell(false)
+        }
+      })
     }
 
-    this.seaAreaCells.forEach(f => {
-      for (let i = 0; i < this.columnsCount; i++) {
-        f[i] = new SeaAreaCell(false)
-      }
-    })
-
-    this.seaAreaCells[this.activeRowIndex][this.activeCellIndex] = new SeaAreaCell(true);
+    this.seaAreaCells[this.activeRowIndex][this.activeColumnIndex] = new SeaAreaCell(true);
   }
 }
 
