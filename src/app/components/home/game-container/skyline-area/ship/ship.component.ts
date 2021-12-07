@@ -6,7 +6,10 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./ship.component.sass']
 })
 export class ShipComponent implements OnInit {
-  @Input() ShipType: string = '';
+  bigShip: string = 'big-ship.png';
+  smallShip: string = 'small-ship.jpg';
+
+  @Input() shipType: string | undefined = '';
 
   constructor() { }
 

@@ -19,16 +19,13 @@ export class SeaAreaComponent implements OnInit {
 
   ngOnInit() {
     for (let i = 0; i < this.rowsCount; i++) {
-      this.seaAreaCells.push([])
-
-      this.seaAreaCells.forEach(f => {
-        for (let i = 0; i < this.columnsCount; i++) {
-          f[i] = new SeaAreaCell(false)
-        }
-      })
+      this.seaAreaCells.push([]);
+      for (let j = 0; j < this.columnsCount; j++) {
+        this.seaAreaCells[i][j] = new SeaAreaCell(false);
+      }
     }
 
-    this.seaAreaCells[this.activeRowIndex][this.activeColumnIndex] = new SeaAreaCell(true);
+    this.seaAreaCells[this.activeRowIndex][this.activeColumnIndex].active = true;
   }
 }
 

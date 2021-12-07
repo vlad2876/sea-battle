@@ -7,14 +7,15 @@ import {Component, OnInit} from '@angular/core';
 })
 export class SkylineAreaComponent implements OnInit {
 
-  shipType = new Map();
+  shipTypes: Map<string, string> = new Map([
+    [ShipType[0], 'big-ship.png'],
+    [ShipType[1], 'small-ship.jpg']
+  ]);
 
   constructor() {
   }
 
   ngOnInit() {
-    this.shipType.set(ShipType[0], 'big-ship.png')
-      .set(ShipType[1], 'small-ship.jpg');
   }
 }
 
