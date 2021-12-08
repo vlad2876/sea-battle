@@ -21,7 +21,7 @@ const appRoutes: Routes = [
   {path: 'stats', component: StatisticsComponent},
   {path: 'about', component: AboutComponent},
   {path: '**', component: NotFoundComponent},
-]
+];
 
 @NgModule({
   declarations: [

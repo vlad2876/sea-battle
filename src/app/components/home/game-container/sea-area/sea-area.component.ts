@@ -6,8 +6,8 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./sea-area.component.sass']
 })
 export class SeaAreaComponent implements OnInit {
-  rowsCount: number = 10;
-  columnsCount: number = 15;
+  rowsCount = 10;
+  columnsCount = 15;
 
   readonly activeRowIndex: number = 9;
   readonly activeColumnIndex: number = 0;

@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {ShipType} from "../game-container-enums/ship-type.enum";
 
 @Component({
   selector: 'home-skyline-area',
@@ -7,19 +8,11 @@ import {Component, OnInit} from '@angular/core';
 })
 export class SkylineAreaComponent implements OnInit {
 
-  shipTypes: Map<string, string> = new Map([
-    [ShipType[0], 'big-ship.png'],
-    [ShipType[1], 'small-ship.jpg']
-  ]);
+  ShipType = ShipType;
 
   constructor() {
   }
 
   ngOnInit() {
   }
-}
-
-enum ShipType {
-  BigShip,
-  SmallShip
 }
