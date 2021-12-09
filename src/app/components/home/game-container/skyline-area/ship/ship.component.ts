@@ -10,12 +10,12 @@ export class ShipComponent implements OnInit {
 
   ShipType = ShipType;
 
-  public readonly shipImagePath: Map<string, string> = new Map([
-    [ShipType[0], 'big-ship.png'],
-    [ShipType[1], 'small-ship.jpg']
+  public readonly shipImagePath: Map<ShipType, string> = new Map([
+    [ShipType.BigShip, 'big-ship.png'],
+    [ShipType.SmallShip, 'small-ship.jpg']
   ]);
 
-  @Input() shipType = '';
+  @Input() shipType: ShipType | undefined;
 
   constructor() { }
 

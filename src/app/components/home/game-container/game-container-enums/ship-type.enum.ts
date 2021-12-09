@@ -1,4 +1,4 @@
 export enum ShipType {
-  BigShip,
-  SmallShip
+  BigShip = 'BigShip',
+  SmallShip = 'SmallShip'
 }

@@ -1,7 +1,7 @@
 <div id="sea-area">
   <table class="game-area">
-    <tr class="game-area-row" *ngFor="let row of seaAreaCells; let i = index">
-      <td class="game-area-column" [class.shot-column]="cell.active"
+    <tr class="game-area__row" *ngFor="let row of seaAreaCells; let i = index">
+      <td class="game-area__column" [class.game-area__cell_active]="cell.active"
           *ngFor="let cell of seaAreaCells[i]">
       </td>
     </tr>
