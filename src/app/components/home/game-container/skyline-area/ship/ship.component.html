@@ -1,0 +1,4 @@
+<div class="ship">
+  <img [ngClass]="{'ship__image_big': shipType === ShipType.BigShip, 'ship__image_small': shipType === ShipType.SmallShip}"
+       src="assets/images/{{shipImagePath.get(shipType)}}" *ngIf="shipType"/>
+</div>
