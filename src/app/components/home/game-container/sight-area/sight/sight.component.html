@@ -1,3 +1,4 @@
 <div id="sight">
-  <img class="sight-image" src="assets/images/sight.png"/>
+  <img [ngStyle]="{'left': sightControlService.left + 'px'}" (keydown)="sightControlService.onKeydown($event)"
+    class="sight-image" src="assets/images/sight.png" tabindex="1"/>
 </div>

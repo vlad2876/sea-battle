@@ -24,7 +24,6 @@ export class SeaAreaComponent implements OnInit {
         this.seaAreaCells[i][j] = new SeaAreaCell(false);
       }
     }
-
     this.seaAreaCells[this.activeRowIndex][this.activeColumnIndex].active = true;
   }
 }
