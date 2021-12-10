@@ -1,12 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {SightControlService} from "./sight-control.service";
+import {animate, state, style, transition, trigger} from "@angular/animations";
 
 @Component({
   selector: 'home-sight',
   templateUrl: './sight.component.html',
   styleUrls: ['./sight.component.sass'],
-  providers: [SightControlService]
+  providers: [SightControlService],
 })
+
 export class SightComponent implements OnInit {
 
   constructor(public sightControlService: SightControlService) {
