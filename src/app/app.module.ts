@@ -15,6 +15,7 @@ import { SightComponent } from './components/home/game-container/sight-area/sigh
 import { GameContainerComponent } from './components/home/game-container/game-container.component';
 import { SkylineAreaComponent } from './components/home/game-container/skyline-area/skyline-area.component';
 import { SightAreaComponent } from './components/home/game-container/sight-area/sight-area.component';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -41,7 +42,8 @@ const appRoutes: Routes = [
     BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot(appRoutes),
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
