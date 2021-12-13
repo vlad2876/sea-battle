@@ -21,10 +21,10 @@ export class SkylineAreaComponent implements OnInit {
   state = 'start';
 
   move = setInterval(() => {
-    this.state = 'end'
+    this.state = 'end';
     setTimeout(() => {
-      this.state = 'start'
-    }, 3100)
+      this.state = 'start';
+    }, 3100);
   }, 3200)
 
   constructor() {
