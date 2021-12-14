@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 
 @Component({
   selector: 'home-sea-area',
@@ -15,18 +15,21 @@ export class SeaAreaComponent implements OnInit {
 
   shotTimeout = 1;
 
-  shot = setInterval(() => {
-    for (let i = 9; i >= 0; i--){
-      this.shotTimeout++;
-      setTimeout(() => {
-        this.seaAreaCells[i][this.activeColumnIndex].active = true;
+  @HostListener('window:keyup', ['$event'])
+  shotAnimation(event: { code: string }) {
+    if (event.code === 'Space') {
+      for (let i = 9; i >= 0; i--) {
+        this.shotTimeout++;
         setTimeout(() => {
-          this.seaAreaCells[i][this.activeColumnIndex].active = false;
-        }, 100);
-      }, 100 * this.shotTimeout);
+          this.seaAreaCells[i][this.activeColumnIndex].active = true;
+          setTimeout(() => {
+            this.seaAreaCells[i][this.activeColumnIndex].active = false;
+          }, 120);
+        }, 120 * this.shotTimeout);
+      }
+      this.shotTimeout = 1;
     }
-    this.shotTimeout = 1;
-  }, 2000)
+  }
 
   constructor() {
   }
