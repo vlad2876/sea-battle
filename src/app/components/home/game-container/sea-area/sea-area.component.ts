@@ -13,21 +13,24 @@ export class SeaAreaComponent implements OnInit {
 
   readonly activeColumnIndex: number = 7;
 
-  shotTimeout = 1;
 
   @HostListener('window:keyup', ['$event'])
   shotAnimation(event: { code: string }) {
     if (event.code === 'Space') {
-      for (let i = 9; i >= 0; i--) {
-        this.shotTimeout++;
-        setTimeout(() => {
-          this.seaAreaCells[i][this.activeColumnIndex].active = true;
+      let activeRowIndex: number = this.rowsCount;
+      const shotInterval = setInterval(() => {
+        activeRowIndex--;
+        this.seaAreaCells[activeRowIndex][this.activeColumnIndex].active = true;
+        if (activeRowIndex < 9) {
+          this.seaAreaCells[activeRowIndex + 1][this.activeColumnIndex].active = false;
+        }
+        if (activeRowIndex === 0) {
+          clearInterval(shotInterval);
           setTimeout(() => {
-            this.seaAreaCells[i][this.activeColumnIndex].active = false;
+            this.seaAreaCells[activeRowIndex][this.activeColumnIndex].active = false;
           }, 120);
-        }, 120 * this.shotTimeout);
-      }
-      this.shotTimeout = 1;
+        }
+      }, 120);
     }
   }
 
