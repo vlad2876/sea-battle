@@ -10,7 +10,7 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
     trigger('shipMovement', [
       state('start', style({left: -210})),
       state('end', style({left: 1050})),
-      transition('start => end', animate('3s'))
+      transition('start => end', animate('5s'))
     ])
   ]
 })
@@ -18,14 +18,14 @@ export class SkylineAreaComponent implements OnInit {
 
   ShipType = ShipType;
 
-  state = 'start';
+  shipMovementState = 'start';
 
-  move = setInterval(() => {
-    this.state = 'end';
+  shipMovementAnimation = setInterval(() => {
+    this.shipMovementState = 'end';
     setTimeout(() => {
-      this.state = 'start';
-    }, 3100);
-  }, 3200)
+      this.shipMovementState = 'start';
+    }, 5100);
+  }, 5200);
 
   constructor() {
   }
