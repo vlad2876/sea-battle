@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {SightControlKey} from "../game-container-enums/sight-control-key.enum";
 
 @Component({
@@ -12,6 +12,7 @@ export class SightAreaComponent implements OnInit {
   leftIndent: number;
   sightElement: HTMLElement;
 
+  @HostListener('window:keydown', ['$event'])
   onKeydown(event: { keyCode: SightControlKey }) {
     if (event.keyCode === SightControlKey.ArrowRight && this.leftIndent < this.width) {
       this.sightElement.style.left = this.leftIndent + this.sightStep + 'px';
