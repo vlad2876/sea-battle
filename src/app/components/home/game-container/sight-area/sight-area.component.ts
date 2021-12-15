@@ -16,12 +16,12 @@ export class SightAreaComponent implements OnInit, AfterViewInit {
   @HostListener('window:keydown', ['$event'])
   onKeydown(event: { keyCode: SightControlKey }) {
     if (event.keyCode === SightControlKey.ArrowRight && this.leftIndent < this.width) {
-      this.sight.nativeElement.style.left = this.leftIndent + this.sightStep + 'px';
+      this.sight.nativeElement.style.left = `${this.leftIndent + this.sightStep}px`;
       this.leftIndent += this.sightStep;
     }
 
     if (event.keyCode === SightControlKey.ArrowLeft && this.leftIndent > 0) {
-      this.sight.nativeElement.style.left = this.leftIndent - this.sightStep + 'px';
+      this.sight.nativeElement.style.left = `${this.leftIndent - this.sightStep}px`;
       this.leftIndent -= this.sightStep;
     }
   }
@@ -35,6 +35,6 @@ export class SightAreaComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.width = this.sightArea.nativeElement.offsetWidth - this.sight.nativeElement.offsetWidth;
     this.leftIndent = this.width / 2;
-    this.sight.nativeElement.style.left = this.leftIndent + 'px';
+    this.sight.nativeElement.style.left = `${this.leftIndent}px`;
   }
 }
