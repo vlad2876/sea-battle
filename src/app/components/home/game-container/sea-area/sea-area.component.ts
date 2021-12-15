@@ -50,7 +50,7 @@ export class SeaAreaComponent implements OnInit {
 }
 
 export class SeaAreaCell {
-  active: boolean
+  active: boolean;
 
   constructor(active: boolean) {
     this.active = active;
