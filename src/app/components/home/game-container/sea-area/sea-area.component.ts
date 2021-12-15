@@ -1,4 +1,5 @@
 import {Component, HostListener, OnInit} from '@angular/core';
+import {KeyCodeEnum} from "../game-container-enums/key-code.enum";
 
 @Component({
   selector: 'home-sea-area',
@@ -8,29 +9,30 @@ import {Component, HostListener, OnInit} from '@angular/core';
 export class SeaAreaComponent implements OnInit {
   rowsCount = 10;
   columnsCount = 15;
+  shotSpeed = 120;
 
   seaAreaCells: SeaAreaCell[][] = [];
 
   readonly activeColumnIndex: number = 7;
 
-
   @HostListener('window:keyup', ['$event'])
-  shotAnimation(event: { code: string }) {
-    if (event.code === 'Space') {
+  shotAnimation(event: { code: KeyCodeEnum }) {
+    if (event.code === KeyCodeEnum.Space) {
       let activeRowIndex: number = this.rowsCount;
       const shotInterval = setInterval(() => {
         activeRowIndex--;
         this.seaAreaCells[activeRowIndex][this.activeColumnIndex].active = true;
-        if (activeRowIndex < 9) {
+        if (activeRowIndex < this.rowsCount - 1) {
           this.seaAreaCells[activeRowIndex + 1][this.activeColumnIndex].active = false;
         }
         if (activeRowIndex === 0) {
           clearInterval(shotInterval);
-          setTimeout(() => {
+          const clearUpperCell = setInterval(() => {
             this.seaAreaCells[activeRowIndex][this.activeColumnIndex].active = false;
-          }, 120);
+            clearInterval(clearUpperCell)
+          }, this.shotSpeed);
         }
-      }, 120);
+      }, this.shotSpeed);
     }
   }
 
