@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ShipType} from "../game-container-enums/ship-type.enum";
 import {animate, state, style, transition, trigger} from "@angular/animations";
-import {ShipStateEnum} from "../game-container-enums/ship-state.enum";
+import {ShipState} from "../game-container-enums/ship-state.enum";
 
 @Component({
   selector: 'home-skyline-area',
@@ -21,12 +21,12 @@ export class SkylineAreaComponent implements OnInit {
 
   shipMovementInterval = 5200;
   stateChangeTimeout = 5100;
-  shipMovementState = ShipStateEnum.Start;
+  shipMovementState = ShipState.Start;
 
   shipMovementAnimation = setInterval(() => {
-    this.shipMovementState = ShipStateEnum.End;
+    this.shipMovementState = ShipState.End;
     setTimeout(() => {
-      this.shipMovementState = ShipStateEnum.Start;
+      this.shipMovementState = ShipState.Start;
     }, this.stateChangeTimeout);
   }, this.shipMovementInterval);
 

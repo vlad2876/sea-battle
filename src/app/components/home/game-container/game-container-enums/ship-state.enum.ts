@@ -1,3 +1,4 @@
-export enum ShipStateEnum {
-  Start = 'start', End = 'end'
+export enum ShipState {
+  Start = 'start',
+  End = 'end'
 }
