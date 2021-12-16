@@ -16,7 +16,7 @@ export class ShipComponent implements OnInit {
     [ShipType.SmallShip, 'small-ship.jpg']
   ]);
 
-  @Input() shipType: ShipType = ShipType.BigShip;
+  @Input() shipType: ShipType;
 
   constructor() { }
 

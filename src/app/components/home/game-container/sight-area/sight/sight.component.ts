@@ -5,6 +5,7 @@ import {Component, OnInit} from '@angular/core';
   templateUrl: './sight.component.html',
   styleUrls: ['./sight.component.sass']
 })
+
 export class SightComponent implements OnInit {
 
   constructor() {
