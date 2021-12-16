@@ -1,9 +1,41 @@
 <div class="container">
-  <h1 class="section-title">Game rules</h1>
-  <p class="text-content">The game area is divided into 3 zones: skyline, along which ships move;
-    sea area, divided into cells, at which the shot is fired and the area, along which the sight moves.</p>
-  <p class="text-content">Your task is to shoot down as many ships as possible.
-    The sight is controlled by the <span class="control-keys">left and right keys</span> on the keyboard, the shot is fired by the
-    <span class="control-keys">Enter key</span>.
-    Before starting the game, you will be prompted to select the size of the game area and the game mode.</p>
+  <ul class="header-text">
+    The application is divided into three sections:
+    <li class="header-list-content">Home</li>
+    <li class="header-list-content">Statistics</li>
+    <li class="header-list-content">About</li>
+  </ul>
+  <h1 class="section-title">Home</h1>
+  <p class="text-content">The Home page contains a button with the text '<span class="text-button">New Game</span>',
+    when you click on it, a modal window will apper, where you will be prompted to select game settings, namely: </p>
+  <ul>
+    <li class="list-content">Username (from 3 to 10 symbols). Latin characters and numbers are allowed. The field is
+      required.
+    </li>
+    <li class="list-content">Game area size (the number of cells in width and height) - two drop-downs.
+      Possible width of the game area - 10 or 15 cells. When choosing 10 cells, the possible height of the game area is
+      5 or 6 cells.
+      When choosing 15 cells, the possible height is 6, 7 or 8 cells. The default size of the game area is 10 x 5.
+    </li>
+    <li class="list-content">Game speed. Possible options are Low, Medium or High.
+      The default speed is low, at a higher speed, the movement of ships, the shot and the movement of the sight are
+      faster.
+    </li>
+    <li class="list-content">The maximum game time is set automatically when the speed is selected.
+      At low speed - 60 seconds, at medium speed - 45 seconds, at high speed - 30 seconds. The default time is 60
+      seconds.
+    </li>
+  </ul>
+  <p class="text-content">You can also reject the modal window with the '<span class="text-button">Cancel</span>'
+    button, or start the game with the
+    '<span class="text-button">Start</span>' button after the necessary settings.
+    Please note, that you will not be able to launch the game if all settings are not selected.</p>
+  <p class="text-content">After starting the game, a game area will appear, above which you can see: your name, a
+    countdown timer,
+    ammo and points counters, the selected speed and the pause button, when pressed, the game is paused,
+    you can also pause the game by pressing the <span class="control-key">P key</span> on the keyboard.
+    You can resume the game at any time with the '<span class="text-button">Continue</span>' button or start a new game
+    with different settings.
+    The old game can be resumed in the Statistics page.</p>
+  <h2 class="subtitle">Game rules</h2>
 </div>
