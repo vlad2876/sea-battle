@@ -1,5 +1,3 @@
 <div class="skyline-area">
-  <home-ship class="big-ship" [shipType]="ShipType.BigShip"></home-ship>
-  <home-ship class="ship__ship-image_small" [shipType]="ShipType.SmallShip"></home-ship>
-  <home-ship class="ship__ship-image_small" [shipType]="ShipType.SmallShip"></home-ship>
+  <home-ship [@shipMovement]="shipMovementState" class="ship__ship-image_small" [shipType]="ShipType.SmallShip"></home-ship>
 </div>
