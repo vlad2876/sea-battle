@@ -9,7 +9,7 @@ import {KeyCodeEnum} from "../game-container-enums/key-code.enum";
 export class SeaAreaComponent implements OnInit {
   rowsCount = 10;
   columnsCount = 15;
-  shotSpeed = 120;
+  shotTime = 120;
 
   seaAreaCells: SeaAreaCell[][] = [];
 
@@ -18,21 +18,19 @@ export class SeaAreaComponent implements OnInit {
   @HostListener('window:keyup', ['$event'])
   shotAnimation(event: { code: KeyCodeEnum }) {
     if (event.code === KeyCodeEnum.Space) {
-      let activeRowIndex: number = this.rowsCount;
+      let activeRowIndex: number = this.rowsCount - 1;
       const shotInterval = setInterval(() => {
-        activeRowIndex--;
-        this.seaAreaCells[activeRowIndex][this.activeColumnIndex].active = true;
+        if (activeRowIndex > -1) {
+          this.seaAreaCells[activeRowIndex][this.activeColumnIndex].active = true;
+        }
         if (activeRowIndex < this.rowsCount - 1) {
           this.seaAreaCells[activeRowIndex + 1][this.activeColumnIndex].active = false;
         }
-        if (activeRowIndex === 0) {
+        if (activeRowIndex === -1) {
           clearInterval(shotInterval);
-          const clearUpperCell = setInterval(() => {
-            this.seaAreaCells[activeRowIndex][this.activeColumnIndex].active = false;
-            clearInterval(clearUpperCell)
-          }, this.shotSpeed);
         }
-      }, this.shotSpeed);
+        activeRowIndex--;
+      }, this.shotTime);
     }
   }
 
