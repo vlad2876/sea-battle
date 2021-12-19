@@ -1,41 +1,98 @@
-<div class="container">
-  <ul class="header-text">
+<div class="about_page">
+  <ul id="header-list">
     The application is divided into three sections:
-    <li class="header-list-content">Home</li>
-    <li class="header-list-content">Statistics</li>
-    <li class="header-list-content">About</li>
+    <li class="header-list__item">Home</li>
+    <li class="header-list__item">Statistics</li>
+    <li class="header-list__item">About</li>
   </ul>
-  <h1 class="section-title">Home</h1>
-  <p class="text-content">The Home page contains a button with the text '<span class="text-button">New Game</span>',
-    when you click on it, a modal window will apper, where you will be prompted to select game settings, namely: </p>
-  <ul>
-    <li class="list-content">Username (from 3 to 10 symbols). Latin characters and numbers are allowed. The field is
+  <h1 class="about-page__section-title">Home</h1>
+  <p class="about-page__text-content">The Home page contains a button with the text '<span
+    class="about-page__text-button">New Game</span>',
+    when you click on it, a modal window will appear, where you will be prompted to select game settings, namely: </p>
+  <ul class="list">
+    <li class="list__item">Username (from 3 to 10 symbols). Latin characters and numbers are allowed. The field is
       required.
     </li>
-    <li class="list-content">Game area size (the number of cells in width and height) - two drop-downs.
+    <li class="list__item">Game area size (the number of cells in width and height) - two drop-downs.
       Possible width of the game area - 10 or 15 cells. When choosing 10 cells, the possible height of the game area is
       5 or 6 cells.
       When choosing 15 cells, the possible height is 6, 7 or 8 cells. The default size of the game area is 10 x 5.
     </li>
-    <li class="list-content">Game speed. Possible options are Low, Medium or High.
+    <li class="list__item">Game speed. Possible options are Low, Medium or High.
       The default speed is low, at a higher speed, the movement of ships, the shot and the movement of the sight are
       faster.
     </li>
-    <li class="list-content">The maximum game time is set automatically when the speed is selected.
+    <li class="list__item">The maximum game time is set automatically when the speed is selected.
       At low speed - 60 seconds, at medium speed - 45 seconds, at high speed - 30 seconds. The default time is 60
       seconds.
     </li>
   </ul>
-  <p class="text-content">You can also reject the modal window with the '<span class="text-button">Cancel</span>'
+  <p class="about-page__text-content">You can also reject the modal window with the '<span
+    class="about-page__text-button">Cancel</span>'
     button, or start the game with the
-    '<span class="text-button">Start</span>' button after the necessary settings.
+    '<span class="about-page__text-button">Start</span>' button after the necessary settings.
     Please note, that you will not be able to launch the game if all settings are not selected.</p>
-  <p class="text-content">After starting the game, a game area will appear, above which you can see: your name, a
+  <p class="about-page__text-content">After starting the game, a game area will appear, above which you can see: your
+    name, a
     countdown timer,
     ammo and points counters, the selected speed and the pause button, when pressed, the game is paused,
-    you can also pause the game by pressing the <span class="control-key">P key</span> on the keyboard.
-    You can resume the game at any time with the '<span class="text-button">Continue</span>' button or start a new game
+    you can also pause the game by pressing the <span class="about-page__control-key">P key</span> on the keyboard.
+    You can resume the game at any time with the '<span class="about-page__text-button">Continue</span>' button or start
+    a new game
     with different settings.
     The old game can be resumed in the Statistics page.</p>
-  <h2 class="subtitle">Game rules</h2>
+  <h2 class="about-page__subtitle">Game rules</h2>
+  <p class="about-page__text-content">The game area is divided into 3 zones: the skyline area, the sea area and the
+    scope of the
+    sight movement.</p>
+  <p class="about-page__text-content">Ships float to the skyline area in random order, from either side. There are two
+    types of
+    ships: big and small, they move at a constant speed, depending on the selected game speed.</p>
+  <p class="about-page__text-content">The sight is located at the bottom of the game area and is moved left and right
+    with the <span
+      class="about-page__control-key"><-
+    and -></span> keys (arrows on the keyboard). A shot is fired with the <span
+      class="about-page__control-key">Space</span> button,
+    it passes through the cells in
+    the sea
+    area and hits the ship if at the moment of activation of the upper cell, any part of the ship is above it. One shot
+    can hit several ships. The next shot can be fired only if the bottom row does not contain active cells. The total
+    number of points is 10. After hitting the target, the ship changes color to red, stops moving and disappears after a
+    second.</p>
+  <ul class="list">
+    The total number of points is calculated according to the principle:
+    <li class="list__item">+150 for hitting a big ship</li>
+    <li class="list__item">+300 for hitting a small ship</li>
+    <li class="list__item">-50 for a miss</li>
+  </ul>
+  <p class="about-page__text-content">The score can not be lower than 0.</p>
+  <p class="about-page__text-content">The game ends if all shots are used, or when the maximum time is over. After
+    completing the
+    game, the '<span class="about-page__text-button">New Game</span>' button will appear.</p>
+  <h2 class="about-page__section-title">Statistics</h2>
+  <ul class="list">
+    The Statistics page contains a table with the following data:
+    <li class="list__item">Username that was entered when the game was launched.</li>
+    <li class="list__item">Game status (completed or paused). If the game is paused, then when you press the '<span
+      class="about-page__text-button">Paused</span>'
+      button you will be redirected to the game and when you press the <span
+        class="about-page__control-key">P key</span> or the
+      <span class="about-page__control-key">Pause</span> button, the game will
+      continue.
+    </li>
+    <li class="list__item">The number of points is calculated based on the downed ships count and misses.</li>
+    <li class="list__item">Game duration.</li>
+    <li class="list__item">Used shots count (maximum 10).</li>
+    <li class="list__item">Downed ships count (big and small).</li>
+    <li class="list__item">Start date.</li>
+    <li class="list__item">End date (if the game is paused, the field is empty).</li>
+    <li class="list__item">Game area size, selected at the start of the game.</li>
+    <li class="list__item">Game speed (low / medium / high), also selected when the game was launched.</li>
+  </ul>
+  <ul class="list">
+    By default, the table is sorted:
+    <li class="list__item">by status (completed games are displayed first).</li>
+    <li class="list__item">by points count (descending).</li>
+    <li class="list__item">by username (in alphabetical order).</li>
+  </ul>
 </div>
