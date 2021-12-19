@@ -7,8 +7,8 @@ import {PointsCountPerHit} from "../gameplay-enums/points-count-per-hit.enum";
 export class SeaBattleGame {
 
   public countdownTime: number = this.maxGameTime;
-  public maxShells: number = 10;
-  public shellsRemaining: number = 10;
+  public maxShells = 10;
+  public shellsRemaining = 10;
 
   constructor(
     public username: string,
@@ -42,7 +42,7 @@ export class SeaBattleGame {
       this.areaWidth,
       this.areaHeight,
       this.gameSpeed
-    )
+    );
   }
 
   private bigShipOnHit() {
