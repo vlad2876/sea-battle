@@ -1,3 +1,5 @@
-export enum SpeedTypeEnum {
-  Slow, Normal, Fast
+export enum SpeedType {
+  Slow,
+  Normal,
+  Fast
 }

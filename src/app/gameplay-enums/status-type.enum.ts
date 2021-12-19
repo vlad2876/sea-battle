@@ -1,3 +1,4 @@
-export enum StatusTypeEnum {
-  Paused, Finished
+export enum StatusType {
+  Paused,
+  Finished
 }
