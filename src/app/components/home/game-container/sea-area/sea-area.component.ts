@@ -15,7 +15,6 @@ export class SeaAreaComponent implements OnInit {
   seaAreaCells: SeaAreaCell[][] = [];
 
   constructor() {
-
   }
 
   ngOnInit() {
