@@ -21,7 +21,7 @@ export class SeaAreaComponent implements OnInit {
     for (let i = 0; i < this.rowsCount; i++) {
       this.seaAreaCells.push([]);
       for (let j = 0; j < this.columnsCount; j++) {
-        this.seaAreaCells[i][j] = new SeaAreaCell(false);
+        this.seaAreaCells[i][j] = new SeaAreaCell(0, false);
       }
     }
     this.seaAreaCells[this.activeRowIndex][this.activeColumnIndex].active = true;
@@ -29,9 +29,11 @@ export class SeaAreaComponent implements OnInit {
 }
 
 class SeaAreaCell {
-  active: boolean
+  shotId: number;
+  active: boolean;
 
-  constructor(active: boolean) {
+  constructor(shotId: number, active: boolean) {
+    this.shotId = shotId;
     this.active = active;
   }
 }

@@ -1,13 +1,15 @@
 import {SpeedType} from "../gameplay-enums/speed-type.enum";
 import {StatusType} from "../gameplay-enums/status-type.enum";
 import {GameDuration} from "../gameplay-enums/game-duration.enum";
+import {Subject} from "rxjs";
+import {ShipType} from "../components/home/game-container/game-container-enums/ship-type.enum";
 
 export class SeaBattleGame {
 
-  // @ts-ignore
+  nextShip = new Subject();
   private status: StatusType;
-  private endDate: number = 0;
-  private duration: number = 0;
+  private endDate = 0;
+  private duration = 0;
 
   constructor(
     private username: string,
@@ -20,19 +22,22 @@ export class SeaBattleGame {
   }
 
   startNewGame() {
-    this.startDate = Date.now();
+    this.runNewShip();
   }
 
   pauseGame() {
+    this.status = StatusType.Paused;
   }
 
   resumeGame() {
   }
 
   private runNewShip() {
+    this.nextShip.next(ShipType.BigShip);
   }
 
   private onGameOver() {
     this.endDate = Date.now();
+    this.status = StatusType.Finished;
   }
 }

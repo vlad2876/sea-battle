@@ -5,10 +5,10 @@ export class SeaBattleShot {
 
   private maxShotCount = 10;
   private shotRemainingCount = this.maxShotCount;
-  private shotCount: number = 0;
-  private points: number = 0;
-  private bigShipsDestroyed: number = 0;
-  private smallShipsDestroyed: number = 0;
+  private shotCount = 0;
+  private points = 0;
+  private bigShipsDestroyed = 0;
+  private smallShipsDestroyed = 0;
 
   onUnsuccessfulShot() {
     if (this.points >= PointsCountPerHit.Miss) {

@@ -10,15 +10,26 @@ export class ShipComponent implements OnInit {
 
   ShipType = ShipType;
 
-  public readonly shipImagePath: Map<ShipType, string> = new Map([
+  readonly shipImagePath: Map<ShipType, string> = new Map([
     [ShipType.BigShip, 'big-ship.png'],
     [ShipType.SmallShip, 'small-ship.jpg']
   ]);
 
-  @Input() shipType: ShipType = ShipType.BigShip;
+  @Input() ship: Ship;
 
   constructor() { }
 
   ngOnInit() {
+  }
+}
+
+export class Ship {
+  id: number;
+  type: ShipType;
+  destroyed = false;
+
+  constructor(id: number, type: ShipType) {
+    this.id = id;
+    this.type = type;
   }
 }
