@@ -1,4 +1,5 @@
 export enum StatusType {
-  Paused,
-  Finished
+  InProgress = 'In progress',
+  Paused = 'Paused',
+  Finished = 'Finished'
 }

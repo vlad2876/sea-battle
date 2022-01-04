@@ -1,43 +1,28 @@
-import {PointsCountPerHit} from "../gameplay-enums/points-count-per-hit.enum";
-import {ShipType} from "../components/home/game-container/game-container-enums/ship-type.enum";
+import {ShotStatus} from "../gameplay-enums/shot-status.enum";
 
 export class SeaBattleShot {
 
-  private maxShotCount = 10;
-  private shotRemainingCount = this.maxShotCount;
-  private shotCount = 0;
-  private points = 0;
   private bigShipsDestroyed = 0;
   private smallShipsDestroyed = 0;
 
-  onUnsuccessfulShot() {
-    if (this.points >= PointsCountPerHit.Miss) {
-      this.points -= PointsCountPerHit.Miss;
-    }
+  constructor(
+    private id: number,
+    private position: number,
+    private status: ShotStatus
+  ) {
+    this.id = id;
+    this.position = position;
+    this.status = status;
   }
 
-  onHitShip(shipType: ShipType) {
-    if (shipType === ShipType.BigShip) {
-      this.onHitBigShip();
-    }
-
-    if (shipType === ShipType.SmallShip) {
-      this.onHitSmallShip();
-    }
+  completeShot() {
   }
 
-  afterShot() {
-    this.shotCount++;
-    this.shotRemainingCount = this.maxShotCount - this.shotCount;
-  }
-
-  private onHitBigShip() {
-    this.points += PointsCountPerHit.HitBigShip;
+  onHitBigShip() {
     this.bigShipsDestroyed++;
   }
 
-  private onHitSmallShip() {
-    this.points += PointsCountPerHit.HitSmallShip;
+  onHitSmallShip() {
     this.smallShipsDestroyed++;
   }
 
