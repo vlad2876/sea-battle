@@ -9,11 +9,7 @@ export class SeaBattleShot {
     private id: number,
     private position: number,
     private status: ShotStatus
-  ) {
-    this.id = id;
-    this.position = position;
-    this.status = status;
-  }
+  ) { }
 
   completeShot() {
   }

@@ -6,9 +6,5 @@ export class SeaBattleShip {
     private leftIndent: number,
     private isDestroyed: boolean,
     private type: ShipType
-  ) {
-    this.leftIndent = leftIndent;
-    this.isDestroyed = isDestroyed;
-    this.type = type;
-  }
+  ) { }
 }
