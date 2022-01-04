@@ -2,9 +2,6 @@ import {ShotStatus} from "../gameplay-enums/shot-status.enum";
 
 export class SeaBattleShot {
 
-  private bigShipsDestroyed = 0;
-  private smallShipsDestroyed = 0;
-
   constructor(
     private id: number,
     private position: number,
@@ -15,11 +12,9 @@ export class SeaBattleShot {
   }
 
   onHitBigShip() {
-    this.bigShipsDestroyed++;
   }
 
   onHitSmallShip() {
-    this.smallShipsDestroyed++;
   }
 
 }

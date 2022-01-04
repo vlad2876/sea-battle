@@ -20,6 +20,9 @@ export class SeaBattleGame {
   private maxShotCount = 10;
   private shotCount = 0;
   private shotRemainingCount = this.maxShotCount - this.shotCount;
+  private bigShipsDestroyed = 0;
+  private smallShipsDestroyed = 0;
+
 
   private nextShip = new Subject();
   private score = new BehaviorSubject(this.points);
