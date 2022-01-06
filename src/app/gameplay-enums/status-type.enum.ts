@@ -1,5 +1,5 @@
-export enum StatusType {
-  InProgress = 'In progress',
-  Paused = 'Paused',
-  Finished = 'Finished'
+export enum GameStatusType {
+  InProgress,
+  Paused,
+  Finished
 }

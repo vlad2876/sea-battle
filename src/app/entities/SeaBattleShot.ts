@@ -2,19 +2,19 @@ import {ShotStatus} from "../gameplay-enums/shot-status.enum";
 
 export class SeaBattleShot {
 
-  constructor(
-    private id: number,
-    private position: number,
-    private status: ShotStatus
-  ) { }
+  private id: number;
+  private position: number;
+  private status: ShotStatus;
+
+  constructor(id: number, position: number, status: ShotStatus) {
+    this.id = id;
+    this.position = position;
+    this.status = status;
+  }
+
+  makeShot(){
+  }
 
   completeShot() {
   }
-
-  onHitBigShip() {
-  }
-
-  onHitSmallShip() {
-  }
-
 }
