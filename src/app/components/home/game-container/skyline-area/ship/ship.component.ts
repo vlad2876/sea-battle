@@ -8,18 +8,23 @@ import {ShipType} from "../../game-container-enums/ship-type.enum";
 
 })
 export class ShipComponent implements OnInit {
-
   ShipType = ShipType;
 
-  public readonly shipImagePath: Map<ShipType, string> = new Map([
+  readonly shipImagePath: Map<ShipType, string> = new Map([
     [ShipType.BigShip, 'big-ship.png'],
     [ShipType.SmallShip, 'small-ship.jpg']
   ]);
 
-  @Input() shipType: ShipType;
+  @Input() ship: Ship;
 
   constructor() { }
 
   ngOnInit() {
   }
+}
+
+export interface Ship {
+  id: number;
+  type: ShipType;
+  destroyed: boolean;
 }

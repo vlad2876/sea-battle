@@ -6,6 +6,7 @@ import {SightControlKey} from "../game-container-enums/sight-control-key.enum";
   templateUrl: './sight-area.component.html',
   styleUrls: ['./sight-area.component.sass']
 })
+
 export class SightAreaComponent implements OnInit, AfterViewInit {
   sightStep = 7;
   width: number;
