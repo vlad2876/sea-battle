@@ -1,17 +1,9 @@
-import {ShipType} from "../components/home/game-container/game-container-enums/ship-type.enum";
+import {ShipData} from "./ShipData";
 import {ShipStatus} from "../gameplay-enums/ship-status.enum";
-import {ShipDirection} from "../gameplay-enums/ship-direction.enum";
 
 export class SeaBattleShip {
-  private leftIndent: number;
-  private status: ShipStatus;
-  private direction: ShipDirection;
-  private type: ShipType;
-
-  constructor(leftIndent: number, status: ShipStatus, direction: ShipDirection, type: ShipType) {
-    this.leftIndent = leftIndent;
-    this.status = status;
-    this.direction = direction;
-    this.type = type;
+  constructor(private shipData: ShipData) {
+    shipData.leftIndent = shipData.leftIndent ? shipData.leftIndent : 0;
+    shipData.status = shipData.status ? shipData.status : ShipStatus.Swims;
   }
 }

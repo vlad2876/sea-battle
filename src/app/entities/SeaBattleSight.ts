@@ -1,9 +1,8 @@
-export class SeaBattleSight {
-  private leftIndent: number;
-  private isDisabled: boolean;
+import {SightData} from "./SightData";
 
-  constructor(leftIndent: number, isDisabled: boolean) {
-    this.leftIndent = leftIndent;
-    this.isDisabled = isDisabled;
+export class SeaBattleSight {
+  constructor(private sightData: SightData) {
+    sightData.leftIndent = sightData.leftIndent ? sightData.leftIndent : 0;
+    sightData.isDisabled = sightData.isDisabled ? sightData.isDisabled : false;
   }
 }
