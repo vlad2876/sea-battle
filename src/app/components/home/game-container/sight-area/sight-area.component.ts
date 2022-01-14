@@ -6,7 +6,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sight-area.component.sass']
 })
 export class SightAreaComponent implements OnInit {
-
   constructor() { }
 
   ngOnInit() {

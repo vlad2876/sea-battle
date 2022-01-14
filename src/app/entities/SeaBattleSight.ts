@@ -1,5 +1,4 @@
 export class SeaBattleSight {
-
   private leftIndent: number;
   private isDisabled: boolean;
 

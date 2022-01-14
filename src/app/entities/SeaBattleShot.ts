@@ -1,7 +1,6 @@
 import {ShotStatus} from "../gameplay-enums/shot-status.enum";
 
 export class SeaBattleShot {
-
   private id: number;
   private position: number;
   private status: ShotStatus;

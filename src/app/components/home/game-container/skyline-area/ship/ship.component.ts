@@ -7,7 +7,6 @@ import {ShipType} from "../../game-container-enums/ship-type.enum";
   styleUrls: ['./ship.component.sass']
 })
 export class ShipComponent implements OnInit {
-
   ShipType = ShipType;
 
   readonly shipImagePath: Map<ShipType, string> = new Map([
@@ -23,13 +22,8 @@ export class ShipComponent implements OnInit {
   }
 }
 
-export class Ship {
+export interface Ship {
   id: number;
   type: ShipType;
-  destroyed = false;
-
-  constructor(id: number, type: ShipType) {
-    this.id = id;
-    this.type = type;
-  }
+  destroyed: boolean;
 }

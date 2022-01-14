@@ -8,9 +8,8 @@ import {Ship} from "./ship/ship.component";
   styleUrls: ['./skyline-area.component.sass']
 })
 export class SkylineAreaComponent implements OnInit {
-
-  bigShip = new Ship(1, ShipType.BigShip);
-  smallShip = new Ship(2, ShipType.SmallShip);
+  bigShip: Ship = {id: 1, type: ShipType.BigShip, destroyed: false};
+  smallShip: Ship = {id: 2, type: ShipType.SmallShip, destroyed: false};
 
   constructor() {
   }
