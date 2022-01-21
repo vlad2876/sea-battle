@@ -1,10 +1,10 @@
-import {Component, HostListener, OnInit} from '@angular/core';
-import {KeyCodeEnum} from "../game-container-enums/key-code.enum";
+import {Component, OnInit} from '@angular/core';
+import {SeaBattleGameService} from "../game-container-services/sea-battle-game.service";
 
 @Component({
   selector: 'home-sea-area',
   templateUrl: './sea-area.component.html',
-  styleUrls: ['./sea-area.component.sass']
+  styleUrls: ['./sea-area.component.sass'],
 })
 export class SeaAreaComponent implements OnInit {
   rowsCount = 10;
@@ -15,9 +15,7 @@ export class SeaAreaComponent implements OnInit {
 
   readonly activeColumnIndex: number = 7;
 
-  @HostListener('window:keyup', ['$event'])
-  shotAnimation(event: { code: KeyCodeEnum }) {
-    if (event.code === KeyCodeEnum.Space) {
+  shotAnimation() {
       let activeRowIndex: number = this.rowsCount - 1;
       const shotInterval = setInterval(() => {
         if (activeRowIndex > -1) {
@@ -31,10 +29,9 @@ export class SeaAreaComponent implements OnInit {
         }
         activeRowIndex--;
       }, this.shotTime);
-    }
   }
 
-  constructor() {
+  constructor(private seaBattleGameService: SeaBattleGameService) {
   }
 
   ngOnInit() {
@@ -44,11 +41,15 @@ export class SeaAreaComponent implements OnInit {
         this.seaAreaCells[i][j] = new SeaAreaCell(false);
       }
     }
+    this.seaBattleGameService.shotAnimation.subscribe(v => {
+      if (v) {
+        this.shotAnimation();
+      }
+    });
   }
 }
 
 export class SeaAreaCell {
-
   active: boolean;
 
   constructor(active: boolean) {

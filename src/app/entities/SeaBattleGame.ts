@@ -1,41 +1,41 @@
 import {GameStatusType} from "../gameplay-enums/status-type.enum";
-import {BehaviorSubject, Subject} from "rxjs";
-import {ShipType} from "../components/home/game-container/game-container-enums/ship-type.enum";
+import {interval, map, take} from "rxjs";
 import {SeaBattleShip} from "./SeaBattleShip";
 import {SeaBattleSight} from "./SeaBattleSight";
 import {SeaBattleShot} from "./SeaBattleShot";
 import {GameStatisticsData} from "./GameStatisticsData";
 import {GameData} from "./GameData";
+import {ShipState} from "../components/home/game-container/game-container-enums/ship-state.enum";
+import {ShipType} from "../components/home/game-container/game-container-enums/ship-type.enum";
+import {ShipDirection} from "../gameplay-enums/ship-direction.enum";
 
 export class SeaBattleGame {
+  nextShip = this.gameData.nextShip.asObservable();
+  score = this.gameData.score.asObservable();
+  shotRemaining = this.gameData.shotRemaining.asObservable();
+  timer = this.gameData.timer.asObservable();
+  selectedSpeed = this.gameData.selectedSpeed.asObservable();
+  gameStatus = this.gameData.gameStatus.asObservable();
+  shotAnimation = this.gameData.shotAnimation.asObservable();
+  shipAnimationState = this.gameData.shipAnimationState.asObservable();
+  shipDirection = this.gameData.shipDirection.asObservable();
+
   private ships: SeaBattleShip[] = [];
   private shots: SeaBattleShot[] = [];
   private sight: SeaBattleSight;
 
-  private readonly maxShotCount = 10;
-  private shotRemainingCount = this.maxShotCount - this.gameData.shotCount;
-
-  private nextShip = new Subject();
-  private score = new BehaviorSubject(this.gameData.points);
-  private shotRemaining = new BehaviorSubject(this.shotRemainingCount);
-  private timer = new BehaviorSubject(this.gameData.maxGameTime);
-  private selectedSpeed = new BehaviorSubject(this.gameData.gameSpeed);
-  private gameStatus = new Subject();
-  private shotAnimation = new Subject();
-  private shipAnimationState = new Subject();
+  private shotRemainingCount: number;
+  private readonly shipAnimationInterval = 5200;
+  private readonly shipStateChangeTimeout = 5100;
 
   constructor(private gameData: GameData) {
-    gameData.points = gameData.points ? gameData.points : 0;
-    gameData.endDate = gameData.endDate ? gameData.endDate : 0;
-    gameData.gameDuration = gameData.gameDuration ? gameData.gameDuration : 0;
-    gameData.shotCount = gameData.shotCount ? gameData.shotCount : 0;
   }
 
   getData(): GameStatisticsData {
     return {
       username: this.gameData.username,
       status: this.gameData.status,
-      points: this.gameData.points,
+      points: this.gameData.score.getValue(),
       gameDuration: this.gameData.gameDuration,
       shotCount: this.gameData.shotCount,
       destroyedBigShipsCount: 0,
@@ -50,11 +50,15 @@ export class SeaBattleGame {
 
   makeShot() {
     this.gameData.shotCount++;
-    this.shotRemainingCount = this.maxShotCount - this.gameData.shotCount;
+    this.shotRemainingCount = this.gameData.maxShotCount - this.gameData.shotCount;
+    this.gameData.shotRemaining.next(this.shotRemainingCount);
+    this.gameData.score.next(this.gameData.score.getValue() + 100);
+    this.gameData.shotAnimation.next(true);
   }
 
   startGame() {
     this.runNewShip();
+    this.startTimer();
   }
 
   pauseGame() {
@@ -77,7 +81,21 @@ export class SeaBattleGame {
   }
 
   private runNewShip() {
-    this.nextShip.next(ShipType.BigShip);
+    setInterval(() => {
+      this.gameData.shipDirection.next(Math.floor(Math.random() * 2) === 0 ? ShipDirection.Right : ShipDirection.Left);
+    }, this.shipAnimationInterval);
+
+    setInterval(() => {
+      this.gameData.nextShip.next(Math.floor(Math.random() * 2) === 0 ? ShipType.BigShip : ShipType.SmallShip);
+    }, this.shipAnimationInterval);
+
+    setInterval(() => {
+      this.gameData.shipAnimationState.next(ShipState.End);
+      setTimeout(() => {
+        this.gameData.shipAnimationState.next(ShipState.Start);
+      }, this.shipStateChangeTimeout);
+    }, this.shipAnimationInterval);
+
   }
 
   private onGameOver() {
@@ -86,5 +104,16 @@ export class SeaBattleGame {
   }
 
   private startTimer() {
+    const timerInterval = 1000;
+
+    interval(timerInterval).pipe(
+      take(this.gameData.maxGameTime + 1),
+      map(sec => this.gameData.maxGameTime - sec)
+    ).subscribe(value => {
+      this.gameData.timer.next(value);
+      if (value === 0) {
+        this.onGameOver();
+      }
+    });
   }
 }

@@ -16,6 +16,8 @@ import { GameContainerComponent } from './components/home/game-container/game-co
 import { SkylineAreaComponent } from './components/home/game-container/skyline-area/skyline-area.component';
 import { SightAreaComponent } from './components/home/game-container/sight-area/sight-area.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {SeaBattleGameService} from "./components/home/game-container/game-container-services/sea-battle-game.service";
+import { HeaderPanelComponent } from './components/home/game-container/information-panel/header-panel.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -37,6 +39,7 @@ const appRoutes: Routes = [
     GameContainerComponent,
     SkylineAreaComponent,
     SightAreaComponent,
+    HeaderPanelComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,7 @@ const appRoutes: Routes = [
     FormsModule,
     BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [SeaBattleGameService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

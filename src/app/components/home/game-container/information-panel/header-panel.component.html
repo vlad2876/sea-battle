@@ -1,0 +1,10 @@
+<div class="header-panel">
+  <ul class="header-panel__info">
+    <li class="info__score">Score: {{score}}</li>
+    <li class="info__shot_remaining">Shots: {{shotRemaining}}/10</li>
+    <li class="info__timer">Timer: {{timer}}s</li>
+    <li class="info__game-speed">Speed type: {{speed}}</li>
+    <li class="info__game-status">Status: {{status}}</li>
+    <button (mouseup)="seaBattleGameService.startGame()">Start</button>
+  </ul>
+</div>
