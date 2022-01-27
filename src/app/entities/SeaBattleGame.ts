@@ -8,6 +8,7 @@ import {GameData} from "./GameData";
 import {ShipState} from "../components/home/game-container/game-container-enums/ship-state.enum";
 import {ShipType} from "../components/home/game-container/game-container-enums/ship-type.enum";
 import {ShipDirection} from "../gameplay-enums/ship-direction.enum";
+import {SightData} from "./SightData";
 
 export class SeaBattleGame {
   nextShip = this.gameData.nextShip.asObservable();
@@ -21,8 +22,8 @@ export class SeaBattleGame {
   shipDirection = this.gameData.shipDirection.asObservable();
 
   private ships: SeaBattleShip[] = [];
-  private shots: SeaBattleShot[] = [];
-  private sight: SeaBattleSight;
+  private _shots: SeaBattleShot[] = [];
+  private sight = new SeaBattleSight(new SightData());
 
   private shotRemainingCount: number;
   private readonly shipAnimationInterval = 5200;
@@ -48,12 +49,12 @@ export class SeaBattleGame {
     };
   }
 
-  makeShot() {
+  makeShot(id: number) {
     this.gameData.shotCount++;
     this.shotRemainingCount = this.gameData.maxShotCount - this.gameData.shotCount;
     this.gameData.shotRemaining.next(this.shotRemainingCount);
     this.gameData.score.next(this.gameData.score.getValue() + 100);
-    this.gameData.shotAnimation.next(true);
+    this.gameData.shotAnimation.next(id);
   }
 
   startGame() {
@@ -69,15 +70,25 @@ export class SeaBattleGame {
   }
 
   setSightPosition(leftIndent: number) {
+    this.sight.sightData.leftIndent = leftIndent;
   }
 
   setShipPosition(leftIndent: number, id: number) {
   }
 
   setShotPosition(position: number, id: number) {
+    this._shots.find(shot => shot.shotData.id === id).shotData.rowIndex = position;
   }
 
   completeShot(id: number) {
+  }
+
+  get shots(): SeaBattleShot[] {
+    return this._shots;
+  }
+
+  set shots(value: SeaBattleShot[]) {
+    this._shots = value;
   }
 
   private runNewShip() {

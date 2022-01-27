@@ -15,7 +15,7 @@ export class GameData {
   private _timer = new BehaviorSubject(this.maxGameTime);
   private _selectedSpeed = new BehaviorSubject(this.gameSpeed);
   private _gameStatus = new BehaviorSubject(GameStatusType.InProgress);
-  private _shotAnimation = new Subject<boolean>();
+  private _shotAnimation = new Subject<number>();
   private _shipAnimationState = new Subject<ShipState>();
   private _shipDirection = new Subject<ShipDirection>();
 
@@ -64,7 +64,7 @@ export class GameData {
     return this._gameStatus;
   }
 
-  get shotAnimation(): Subject<boolean> {
+  get shotAnimation(): Subject<number> {
     return this._shotAnimation;
   }
 

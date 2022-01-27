@@ -17,7 +17,7 @@ import { SkylineAreaComponent } from './components/home/game-container/skyline-a
 import { SightAreaComponent } from './components/home/game-container/sight-area/sight-area.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {SeaBattleGameService} from "./components/home/game-container/game-container-services/sea-battle-game.service";
-import { HeaderPanelComponent } from './components/home/game-container/information-panel/header-panel.component';
+import { HeaderPanelComponent } from './components/home/game-container/header-panel/header-panel.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},

@@ -2,6 +2,8 @@ import {SeaBattleGame} from "../../../../entities/SeaBattleGame";
 import {GameData} from "../../../../entities/GameData";
 import {GameDuration} from "../../../../gameplay-enums/game-duration.enum";
 import {SpeedType} from "../../../../gameplay-enums/speed-type.enum";
+import {SeaBattleShot} from "../../../../entities/SeaBattleShot";
+import {ShotData} from "../../../../entities/ShotData";
 
 export class SeaBattleGameService {
   private game = new SeaBattleGame(new GameData('abc', GameDuration.Slow, 0, 0, 0, SpeedType.Slow));
@@ -16,8 +18,16 @@ export class SeaBattleGameService {
   shipAnimationState = this.game.shipAnimationState;
   shipDirection = this.game.shipDirection;
 
+  private _sightLeftIndent: number;
+  private _shots = this.game.shots;
+  private _shotId = 1;
+
   makeShot() {
-    this.game.makeShot();
+    if (this._shots.length < 10) {
+      this.game.shots.push(new SeaBattleShot(new ShotData(this._shotId, Math.round(this.sightLeftIndent / 70))));
+      this.game.makeShot(this._shotId);
+      this._shotId++;
+    }
   }
 
   startGame() {
@@ -46,5 +56,17 @@ export class SeaBattleGameService {
 
   completeShot(id: number) {
     this.game.completeShot(id);
+  }
+
+  get shots(): SeaBattleShot[] {
+    return this._shots;
+  }
+
+  get sightLeftIndent(): number {
+    return this._sightLeftIndent;
+  }
+
+  set sightLeftIndent(value: number) {
+    this._sightLeftIndent = value;
   }
 }

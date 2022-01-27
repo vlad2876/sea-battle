@@ -7,28 +7,29 @@ import {SeaBattleGameService} from "../game-container-services/sea-battle-game.s
   styleUrls: ['./sea-area.component.sass'],
 })
 export class SeaAreaComponent implements OnInit {
-  rowsCount = 10;
-  columnsCount = 15;
-  shotTime = 120;
-
   seaAreaCells: SeaAreaCell[][] = [];
 
-  readonly activeColumnIndex: number = 7;
+  private rowsCount = 10;
+  private columnsCount = 15;
+  private shotTime = 120;
 
-  shotAnimation() {
-      let activeRowIndex: number = this.rowsCount - 1;
-      const shotInterval = setInterval(() => {
-        if (activeRowIndex > -1) {
-          this.seaAreaCells[activeRowIndex][this.activeColumnIndex].active = true;
-        }
-        if (activeRowIndex < this.rowsCount - 1) {
-          this.seaAreaCells[activeRowIndex + 1][this.activeColumnIndex].active = false;
-        }
-        if (activeRowIndex === -1) {
-          clearInterval(shotInterval);
-        }
-        activeRowIndex--;
-      }, this.shotTime);
+  shotAnimation(id: number) {
+    let activeRowIndex = this.seaBattleGameService.shots.find(shot => shot.shotData.id === id).shotData.rowIndex;
+    const activeColumnIndex = this.seaBattleGameService.shots.find(shot => shot.shotData.id === id).shotData.columnIndex;
+
+    const shotInterval = setInterval(() => {
+
+      if (activeRowIndex > -1) {
+        this.seaAreaCells[activeRowIndex][activeColumnIndex].active = true;
+      }
+      if (activeRowIndex < this.rowsCount - 1) {
+        this.seaAreaCells[activeRowIndex + 1][activeColumnIndex].active = false;
+      }
+      if (activeRowIndex === -1) {
+        clearInterval(shotInterval);
+      }
+      this.seaBattleGameService.setShotPosition(activeRowIndex--, id);
+    }, this.shotTime);
   }
 
   constructor(private seaBattleGameService: SeaBattleGameService) {
@@ -41,11 +42,7 @@ export class SeaAreaComponent implements OnInit {
         this.seaAreaCells[i][j] = new SeaAreaCell(false);
       }
     }
-    this.seaBattleGameService.shotAnimation.subscribe(v => {
-      if (v) {
-        this.shotAnimation();
-      }
-    });
+    this.seaBattleGameService.shotAnimation.subscribe(v => this.shotAnimation(v));
   }
 }
 
