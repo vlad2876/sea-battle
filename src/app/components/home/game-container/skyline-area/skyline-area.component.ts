@@ -36,10 +36,10 @@ export class SkylineAreaComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.seaBattleGameService.shipAnimationState.subscribe(v => this.shipMovementState = v);
-    this.seaBattleGameService.nextShip.subscribe(v => {
-      this.ship = { id: 1, type: v, destroyed: false };
+    this.seaBattleGameService.shipAnimationState.subscribe(shipMovementState => this.shipMovementState = shipMovementState);
+    this.seaBattleGameService.nextShip.subscribe(shipType => {
+      this.ship = { id: 1, type: shipType, destroyed: false };
     });
-    this.seaBattleGameService.shipDirection.subscribe(v => this.shipDirection = v);
+    this.seaBattleGameService.shipDirection.subscribe(shipDirection => this.shipDirection = shipDirection);
   }
 }

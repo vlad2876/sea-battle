@@ -4,7 +4,7 @@ import { SeaBattleGameService } from "../game-container-services/sea-battle-game
 @Component({
   selector: 'home-sea-area',
   templateUrl: './sea-area.component.html',
-  styleUrls: ['./sea-area.component.sass'],
+  styleUrls: ['./sea-area.component.sass']
 })
 export class SeaAreaComponent implements OnInit {
   rowsCount = 10;

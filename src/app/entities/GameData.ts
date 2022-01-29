@@ -29,7 +29,7 @@ export class GameData {
     private _status?: GameStatusType,
     private _endDate?: number,
     private _gameDuration?: number,
-    private _shotCount?: number,
+    private _shotCount?: number
   ) {
     this.endDate = this.endDate ? this.endDate : 0;
     this.gameDuration = this.gameDuration ? this.gameDuration : 0;

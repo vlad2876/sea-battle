@@ -9,8 +9,6 @@ import { ShipState } from "../game-container-enums/ship-state.enum";
 import { ShipDirection } from "../../../../gameplay-enums/ship-direction.enum";
 
 export class SeaBattleGameService {
-  private game = new SeaBattleGame(new GameData('abc', GameDurationSeconds.Long, 0, 0, 0, SpeedType.Slow));
-
   nextShip: Observable<ShipType>;
   score: Observable<number>;
   shotRemaining: Observable<number>;
@@ -20,6 +18,8 @@ export class SeaBattleGameService {
   startShotAnimation: Observable<boolean>;
   shipAnimationState: Observable<ShipState>;
   shipDirection: Observable<ShipDirection>;
+
+  private game = new SeaBattleGame(new GameData('abc', GameDurationSeconds.Long, 0, 0, 0, SpeedType.Slow));
 
   constructor() {
     this.nextShip = this.game.nextShip;

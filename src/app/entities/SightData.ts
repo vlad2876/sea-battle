@@ -2,7 +2,10 @@ export class SightData {
   constructor(
     private _leftIndent?: number,
     private _isDisabled?: boolean
-  ) { }
+  ) {
+    this.leftIndent = this.leftIndent ? this.leftIndent : 0;
+    this.isDisabled = Boolean(this.isDisabled);
+  }
 
   get leftIndent(): number {
     return this._leftIndent;

@@ -6,7 +6,7 @@ import { KeyCodeEnum } from "../game-container-enums/key-code.enum";
 @Component({
   selector: 'home-sight-area',
   templateUrl: './sight-area.component.html',
-  styleUrls: ['./sight-area.component.sass'],
+  styleUrls: ['./sight-area.component.sass']
 })
 
 export class SightAreaComponent implements OnInit, AfterViewInit {

@@ -9,6 +9,8 @@ export class ShipData {
     private _leftIndent?: number,
     private _status?: ShipStatus
   ) {
+    this.leftIndent = this.leftIndent ? this.leftIndent : 0;
+    this.status = this.status ? this.status : ShipStatus.Swims;
   }
 
   get leftIndent(): number {
