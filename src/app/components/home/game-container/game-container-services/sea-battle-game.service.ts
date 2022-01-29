@@ -1,20 +1,37 @@
-import {SeaBattleGame} from "../../../../entities/SeaBattleGame";
-import {GameData} from "../../../../entities/GameData";
-import {GameDuration} from "../../../../gameplay-enums/game-duration.enum";
-import {SpeedType} from "../../../../gameplay-enums/speed-type.enum";
+import { SeaBattleGame } from "../../../../entities/SeaBattleGame";
+import { GameData } from "../../../../entities/GameData";
+import { GameDurationSeconds } from "../../../../gameplay-enums/game-duration-seconds.enum";
+import { SpeedType } from "../../../../gameplay-enums/speed-type.enum";
+import { Observable } from "rxjs";
+import { ShipType } from "../game-container-enums/ship-type.enum";
+import { GameStatusType } from "../../../../gameplay-enums/status-type.enum";
+import { ShipState } from "../game-container-enums/ship-state.enum";
+import { ShipDirection } from "../../../../gameplay-enums/ship-direction.enum";
 
 export class SeaBattleGameService {
-  private game = new SeaBattleGame(new GameData('abc', GameDuration.Slow, 0, 0, 0, SpeedType.Slow));
+  private game = new SeaBattleGame(new GameData('abc', GameDurationSeconds.Long, 0, 0, 0, SpeedType.Slow));
 
-  nextShip = this.game.nextShip;
-  score = this.game.score;
-  shotRemaining = this.game.shotRemaining;
-  timer = this.game.timer;
-  speed = this.game.selectedSpeed;
-  status = this.game.gameStatus;
-  shotAnimation = this.game.shotAnimation;
-  shipAnimationState = this.game.shipAnimationState;
-  shipDirection = this.game.shipDirection;
+  nextShip: Observable<ShipType>;
+  score: Observable<number>;
+  shotRemaining: Observable<number>;
+  timer: Observable<GameDurationSeconds>;
+  speed: Observable<SpeedType>;
+  status: Observable<GameStatusType>;
+  startShotAnimation: Observable<boolean>;
+  shipAnimationState: Observable<ShipState>;
+  shipDirection: Observable<ShipDirection>;
+
+  constructor() {
+    this.nextShip = this.game.nextShip;
+    this.score = this.game.score;
+    this.shotRemaining = this.game.shotRemaining;
+    this.timer = this.game.timer;
+    this.speed = this.game.selectedSpeed;
+    this.status = this.game.gameStatus;
+    this.startShotAnimation = this.game.startShotAnimation;
+    this.shipAnimationState = this.game.shipAnimationState;
+    this.shipDirection = this.game.shipDirection;
+  }
 
   makeShot() {
     this.game.makeShot();

@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {SeaBattleGameService} from "../game-container-services/sea-battle-game.service";
+import { Component, OnInit } from '@angular/core';
+import { SeaBattleGameService } from "../game-container-services/sea-battle-game.service";
 
 @Component({
   selector: 'home-sea-area',
@@ -15,7 +15,7 @@ export class SeaAreaComponent implements OnInit {
 
   readonly activeColumnIndex: number = 7;
 
-  shotAnimation() {
+  startShotAnimation() {
       let activeRowIndex: number = this.rowsCount - 1;
       const shotInterval = setInterval(() => {
         if (activeRowIndex > -1) {
@@ -41,9 +41,9 @@ export class SeaAreaComponent implements OnInit {
         this.seaAreaCells[i][j] = new SeaAreaCell(false);
       }
     }
-    this.seaBattleGameService.shotAnimation.subscribe(v => {
+    this.seaBattleGameService.startShotAnimation.subscribe(v => {
       if (v) {
-        this.shotAnimation();
+        this.startShotAnimation();
       }
     });
   }

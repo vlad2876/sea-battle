@@ -1,13 +1,13 @@
-import {GameStatusType} from "../gameplay-enums/status-type.enum";
-import {interval, map, take} from "rxjs";
-import {SeaBattleShip} from "./SeaBattleShip";
-import {SeaBattleSight} from "./SeaBattleSight";
-import {SeaBattleShot} from "./SeaBattleShot";
-import {GameStatisticsData} from "./GameStatisticsData";
-import {GameData} from "./GameData";
-import {ShipState} from "../components/home/game-container/game-container-enums/ship-state.enum";
-import {ShipType} from "../components/home/game-container/game-container-enums/ship-type.enum";
-import {ShipDirection} from "../gameplay-enums/ship-direction.enum";
+import { GameStatusType } from "../gameplay-enums/status-type.enum";
+import { interval, map, take } from "rxjs";
+import { SeaBattleShip } from "./SeaBattleShip";
+import { SeaBattleSight } from "./SeaBattleSight";
+import { SeaBattleShot } from "./SeaBattleShot";
+import { GameStatisticsData } from "./GameStatisticsData";
+import { GameData } from "./GameData";
+import { ShipState } from "../components/home/game-container/game-container-enums/ship-state.enum";
+import { ShipType } from "../components/home/game-container/game-container-enums/ship-type.enum";
+import { ShipDirection } from "../gameplay-enums/ship-direction.enum";
 
 export class SeaBattleGame {
   nextShip = this.gameData.nextShip.asObservable();
@@ -16,7 +16,7 @@ export class SeaBattleGame {
   timer = this.gameData.timer.asObservable();
   selectedSpeed = this.gameData.selectedSpeed.asObservable();
   gameStatus = this.gameData.gameStatus.asObservable();
-  shotAnimation = this.gameData.shotAnimation.asObservable();
+  startShotAnimation = this.gameData.shotAnimation.asObservable();
   shipAnimationState = this.gameData.shipAnimationState.asObservable();
   shipDirection = this.gameData.shipDirection.asObservable();
 
@@ -80,13 +80,17 @@ export class SeaBattleGame {
   completeShot(id: number) {
   }
 
+  generateRandomNumber() {
+    return Math.floor(Math.random() * 2);
+  }
+
   private runNewShip() {
     setInterval(() => {
-      this.gameData.shipDirection.next(Math.floor(Math.random() * 2) === 0 ? ShipDirection.Right : ShipDirection.Left);
+      this.gameData.shipDirection.next(this.generateRandomNumber() === 0 ? ShipDirection.Right : ShipDirection.Left);
     }, this.shipAnimationInterval);
 
     setInterval(() => {
-      this.gameData.nextShip.next(Math.floor(Math.random() * 2) === 0 ? ShipType.BigShip : ShipType.SmallShip);
+      this.gameData.nextShip.next(this.generateRandomNumber() === 0 ? ShipType.BigShip : ShipType.SmallShip);
     }, this.shipAnimationInterval);
 
     setInterval(() => {
@@ -95,7 +99,6 @@ export class SeaBattleGame {
         this.gameData.shipAnimationState.next(ShipState.Start);
       }, this.shipStateChangeTimeout);
     }, this.shipAnimationInterval);
-
   }
 
   private onGameOver() {

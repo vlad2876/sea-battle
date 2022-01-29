@@ -1,6 +1,6 @@
-import {ShipStatus} from "../gameplay-enums/ship-status.enum";
-import {ShipDirection} from "../gameplay-enums/ship-direction.enum";
-import {ShipType} from "../components/home/game-container/game-container-enums/ship-type.enum";
+import { ShipStatus } from "../gameplay-enums/ship-status.enum";
+import { ShipDirection } from "../gameplay-enums/ship-direction.enum";
+import { ShipType } from "../components/home/game-container/game-container-enums/ship-type.enum";
 
 export class ShipData {
   constructor(

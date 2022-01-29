@@ -1,7 +1,7 @@
-import {AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
-import {SightControlKey} from "../game-container-enums/sight-control-key.enum";
-import {SeaBattleGameService} from "../game-container-services/sea-battle-game.service";
-import {KeyCodeEnum} from "../game-container-enums/key-code.enum";
+import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { SightControlKey } from "../game-container-enums/sight-control-key.enum";
+import { SeaBattleGameService } from "../game-container-services/sea-battle-game.service";
+import { KeyCodeEnum } from "../game-container-enums/key-code.enum";
 
 @Component({
   selector: 'home-sight-area',
@@ -13,8 +13,8 @@ export class SightAreaComponent implements OnInit, AfterViewInit {
   sightStep = 7;
   width: number;
   leftIndent: number;
-  @ViewChild('sight', {read: ElementRef}) sight: ElementRef;
-  @ViewChild('sightArea', {read: ElementRef}) sightArea: ElementRef;
+  @ViewChild('sight', { read: ElementRef }) sight: ElementRef;
+  @ViewChild('sightArea', { read: ElementRef }) sightArea: ElementRef;
 
   @HostListener('window:keydown', ['$event'])
   onKeydown(event: { keyCode: SightControlKey }) {

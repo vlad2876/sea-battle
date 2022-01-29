@@ -1,10 +1,10 @@
-import {GameStatusType} from "../gameplay-enums/status-type.enum";
-import {GameDuration} from "../gameplay-enums/game-duration.enum";
-import {SpeedType} from "../gameplay-enums/speed-type.enum";
-import {BehaviorSubject, Subject} from "rxjs";
-import {ShipType} from "../components/home/game-container/game-container-enums/ship-type.enum";
-import {ShipState} from "../components/home/game-container/game-container-enums/ship-state.enum";
-import {ShipDirection} from "../gameplay-enums/ship-direction.enum";
+import { GameStatusType } from "../gameplay-enums/status-type.enum";
+import { GameDurationSeconds } from "../gameplay-enums/game-duration-seconds.enum";
+import { SpeedType } from "../gameplay-enums/speed-type.enum";
+import { BehaviorSubject, Subject } from "rxjs";
+import { ShipType } from "../components/home/game-container/game-container-enums/ship-type.enum";
+import { ShipState } from "../components/home/game-container/game-container-enums/ship-state.enum";
+import { ShipDirection } from "../gameplay-enums/ship-direction.enum";
 
 export class GameData {
   private readonly _maxShotCount = 10;
@@ -21,7 +21,7 @@ export class GameData {
 
   constructor(
     private _username: string,
-    private _maxGameTime: GameDuration,
+    private _maxGameTime: GameDurationSeconds,
     private _startDate: number,
     private _areaWidth: number,
     private _areaHeight: number,
@@ -52,7 +52,7 @@ export class GameData {
     return this._shotRemaining;
   }
 
-  get timer(): BehaviorSubject<GameDuration> {
+  get timer(): BehaviorSubject<GameDurationSeconds> {
     return this._timer;
   }
 
@@ -84,11 +84,11 @@ export class GameData {
     this._username = value;
   }
 
-  get maxGameTime(): GameDuration {
+  get maxGameTime(): GameDurationSeconds {
     return this._maxGameTime;
   }
 
-  set maxGameTime(value: GameDuration) {
+  set maxGameTime(value: GameDurationSeconds) {
     this._maxGameTime = value;
   }
 
