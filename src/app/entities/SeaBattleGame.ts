@@ -1,5 +1,5 @@
 import { GameStatusType } from "../gameplay-enums/status-type.enum";
-import { interval, map, take } from "rxjs";
+import { BehaviorSubject, interval, map, Observable, Subject, take } from "rxjs";
 import { SeaBattleShip } from "./SeaBattleShip";
 import { SeaBattleSight } from "./SeaBattleSight";
 import { SeaBattleShot } from "./SeaBattleShot";
@@ -8,17 +8,20 @@ import { GameData } from "./GameData";
 import { ShipState } from "../components/home/game-container/game-container-enums/ship-state.enum";
 import { ShipType } from "../components/home/game-container/game-container-enums/ship-type.enum";
 import { ShipDirection } from "../gameplay-enums/ship-direction.enum";
+import { GameDurationSeconds } from "../gameplay-enums/game-duration-seconds.enum";
+import { SpeedType } from "../gameplay-enums/speed-type.enum";
 
 export class SeaBattleGame {
-  nextShip = this.gameData.nextShip.asObservable();
-  score = this.gameData.score.asObservable();
-  shotRemaining = this.gameData.shotRemaining.asObservable();
-  timer = this.gameData.timer.asObservable();
-  selectedSpeed = this.gameData.selectedSpeed.asObservable();
-  gameStatus = this.gameData.gameStatus.asObservable();
-  startShotAnimation = this.gameData.shotAnimation.asObservable();
-  shipAnimationState = this.gameData.shipAnimationState.asObservable();
-  shipDirection = this.gameData.shipDirection.asObservable();
+
+  private nextShip = new Subject<ShipType>();
+  private score = new BehaviorSubject<number>(0);
+  private shotRemaining = new BehaviorSubject<number>(this.gameData.maxShotCount);
+  private timer = new BehaviorSubject<GameDurationSeconds>(this.gameData.maxGameTime);
+  private selectedSpeed = new BehaviorSubject<SpeedType>(this.gameData.gameSpeed);
+  private gameStatus = new BehaviorSubject<GameStatusType>(GameStatusType.InProgress);
+  private shotAnimation = new Subject<boolean>();
+  private shipAnimationState = new Subject<ShipState>();
+  private shipDirection = new Subject<ShipDirection>();
 
   private ships: SeaBattleShip[] = [];
   private shots: SeaBattleShot[] = [];
@@ -31,11 +34,47 @@ export class SeaBattleGame {
   constructor(private gameData: GameData) {
   }
 
+  getNextShip(): Observable<ShipType> {
+    return this.nextShip.asObservable();
+  }
+
+  getScore(): Observable<number> {
+    return this.score.asObservable();
+  }
+
+  getShotRemaining(): Observable<number> {
+    return this.shotRemaining.asObservable();
+  }
+
+  getTimer(): Observable<GameDurationSeconds> {
+    return this.timer.asObservable();
+  }
+
+  getSelectedSpeed(): Observable<SpeedType> {
+    return this.selectedSpeed.asObservable();
+  }
+
+  getGameStatus(): Observable<GameStatusType> {
+    return this.gameStatus.asObservable();
+  }
+
+  getShotAnimation(): Observable<boolean> {
+    return this.shotAnimation.asObservable();
+  }
+
+  getShipAnimationState(): Observable<ShipState> {
+    return this.shipAnimationState.asObservable();
+  }
+
+  getShipDirection(): Observable<ShipDirection> {
+    return this.shipDirection.asObservable();
+  }
+
   getData(): GameStatisticsData {
     return {
       username: this.gameData.username,
       status: this.gameData.status,
-      points: this.gameData.score.getValue(),
+      points: this.score.getValue(),
       gameDuration: this.gameData.gameDuration,
       shotCount: this.gameData.shotCount,
       destroyedBigShipsCount: 0,
@@ -51,9 +90,9 @@ export class SeaBattleGame {
   makeShot() {
     this.gameData.shotCount++;
     this.shotRemainingCount = this.gameData.maxShotCount - this.gameData.shotCount;
-    this.gameData.shotRemaining.next(this.shotRemainingCount);
-    this.gameData.score.next(this.gameData.score.getValue() + 100);
-    this.gameData.shotAnimation.next(true);
+    this.shotRemaining.next(this.shotRemainingCount);
+    this.score.next(this.score.getValue() + 100);
+    this.shotAnimation.next(true);
   }
 
   startGame() {
@@ -80,23 +119,23 @@ export class SeaBattleGame {
   completeShot(id: number) {
   }
 
-  generateRandomNumber() {
+  generateRandomNumber(): number {
     return Math.floor(Math.random() * 2);
   }
 
   private runNewShip() {
     setInterval(() => {
-      this.gameData.shipDirection.next(this.generateRandomNumber() === 0 ? ShipDirection.Right : ShipDirection.Left);
+      this.shipDirection.next(this.generateRandomNumber() === 0 ? ShipDirection.Right : ShipDirection.Left);
     }, this.shipAnimationInterval);
 
     setInterval(() => {
-      this.gameData.nextShip.next(this.generateRandomNumber() === 0 ? ShipType.BigShip : ShipType.SmallShip);
+      this.nextShip.next(this.generateRandomNumber() === 0 ? ShipType.BigShip : ShipType.SmallShip);
     }, this.shipAnimationInterval);
 
     setInterval(() => {
-      this.gameData.shipAnimationState.next(ShipState.End);
+      this.shipAnimationState.next(ShipState.End);
       setTimeout(() => {
-        this.gameData.shipAnimationState.next(ShipState.Start);
+        this.shipAnimationState.next(ShipState.Start);
       }, this.shipStateChangeTimeout);
     }, this.shipAnimationInterval);
   }
@@ -113,7 +152,7 @@ export class SeaBattleGame {
       take(this.gameData.maxGameTime + 1),
       map(sec => this.gameData.maxGameTime - sec)
     ).subscribe(value => {
-      this.gameData.timer.next(value);
+      this.timer.next(value);
       if (value === 0) {
         this.onGameOver();
       }

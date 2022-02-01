@@ -15,7 +15,19 @@ export class HeaderPanelComponent implements OnInit {
   speed: string;
   status: string;
 
-  startGame() {
+  readonly selectedSpeed: Map<SpeedType, string> = new Map([
+    [SpeedType.Slow, 'Slow'],
+    [SpeedType.Normal, 'Normal'],
+    [SpeedType.Fast, 'Fast']
+]);
+
+  readonly gameStatus: Map<GameStatusType, string> = new Map([
+    [GameStatusType.InProgress, 'In progress...'],
+    [GameStatusType.Paused, 'Paused'],
+    [GameStatusType.Finished, 'Finished']
+  ]);
+
+    startGame() {
     this.seaBattleGameService.startGame();
   }
 
@@ -26,7 +38,7 @@ export class HeaderPanelComponent implements OnInit {
     this.seaBattleGameService.score.subscribe(score => this.score = score);
     this.seaBattleGameService.shotRemaining.subscribe(shotRemaining => this.shotRemaining = shotRemaining);
     this.seaBattleGameService.timer.subscribe(timer => this.timer = timer);
-    this.seaBattleGameService.speed.subscribe(speed => this.speed = SpeedType[speed]);
-    this.seaBattleGameService.status.subscribe(status => this.status = GameStatusType[status]);
+    this.seaBattleGameService.speed.subscribe(speed => this.speed = this.selectedSpeed.get(speed));
+    this.seaBattleGameService.status.subscribe(status => this.status = this.gameStatus.get(status));
   }
 }

@@ -1,23 +1,9 @@
 import { GameStatusType } from "../gameplay-enums/status-type.enum";
 import { GameDurationSeconds } from "../gameplay-enums/game-duration-seconds.enum";
 import { SpeedType } from "../gameplay-enums/speed-type.enum";
-import { BehaviorSubject, Subject } from "rxjs";
-import { ShipType } from "../components/home/game-container/game-container-enums/ship-type.enum";
-import { ShipState } from "../components/home/game-container/game-container-enums/ship-state.enum";
-import { ShipDirection } from "../gameplay-enums/ship-direction.enum";
 
 export class GameData {
   private readonly _maxShotCount = 10;
-
-  private _nextShip = new Subject<ShipType>();
-  private _score = new BehaviorSubject(0);
-  private _shotRemaining = new BehaviorSubject(this.maxShotCount);
-  private _timer = new BehaviorSubject(this.maxGameTime);
-  private _selectedSpeed = new BehaviorSubject(this.gameSpeed);
-  private _gameStatus = new BehaviorSubject(GameStatusType.InProgress);
-  private _shotAnimation = new Subject<boolean>();
-  private _shipAnimationState = new Subject<ShipState>();
-  private _shipDirection = new Subject<ShipDirection>();
 
   constructor(
     private _username: string,
@@ -38,42 +24,6 @@ export class GameData {
 
   get maxShotCount(): number {
     return this._maxShotCount;
-  }
-
-  get nextShip(): Subject<ShipType> {
-    return this._nextShip;
-  }
-
-  get score(): BehaviorSubject<number> {
-    return this._score;
-  }
-
-  get shotRemaining(): BehaviorSubject<number> {
-    return this._shotRemaining;
-  }
-
-  get timer(): BehaviorSubject<GameDurationSeconds> {
-    return this._timer;
-  }
-
-  get selectedSpeed(): BehaviorSubject<SpeedType> {
-    return this._selectedSpeed;
-  }
-
-  get gameStatus(): BehaviorSubject<GameStatusType> {
-    return this._gameStatus;
-  }
-
-  get shotAnimation(): Subject<boolean> {
-    return this._shotAnimation;
-  }
-
-  get shipAnimationState(): Subject<ShipState> {
-    return this._shipAnimationState;
-  }
-
-  get shipDirection(): Subject<ShipDirection> {
-    return this._shipDirection;
   }
 
   get username(): string {

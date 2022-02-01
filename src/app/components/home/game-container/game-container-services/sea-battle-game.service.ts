@@ -22,15 +22,15 @@ export class SeaBattleGameService {
   private game = new SeaBattleGame(new GameData('abc', GameDurationSeconds.Long, 0, 0, 0, SpeedType.Slow));
 
   constructor() {
-    this.nextShip = this.game.nextShip;
-    this.score = this.game.score;
-    this.shotRemaining = this.game.shotRemaining;
-    this.timer = this.game.timer;
-    this.speed = this.game.selectedSpeed;
-    this.status = this.game.gameStatus;
-    this.startShotAnimation = this.game.startShotAnimation;
-    this.shipAnimationState = this.game.shipAnimationState;
-    this.shipDirection = this.game.shipDirection;
+    this.nextShip = this.game.getNextShip();
+    this.score = this.game.getScore();
+    this.shotRemaining = this.game.getShotRemaining();
+    this.timer = this.game.getTimer();
+    this.speed = this.game.getSelectedSpeed();
+    this.status = this.game.getGameStatus();
+    this.startShotAnimation = this.game.getShotAnimation();
+    this.shipAnimationState = this.game.getShipAnimationState();
+    this.shipDirection = this.game.getShipDirection();
   }
 
   makeShot() {
