@@ -1,21 +1,29 @@
-import {GameStatusType} from "../gameplay-enums/status-type.enum";
-import {GameDuration} from "../gameplay-enums/game-duration.enum";
-import {SpeedType} from "../gameplay-enums/speed-type.enum";
+import { GameStatusType } from "../gameplay-enums/status-type.enum";
+import { GameDurationSeconds } from "../gameplay-enums/game-duration-seconds.enum";
+import { SpeedType } from "../gameplay-enums/speed-type.enum";
 
 export class GameData {
+  private readonly _maxShotCount = 10;
+
   constructor(
     private _username: string,
-    private _maxGameTime: GameDuration,
+    private _maxGameTime: GameDurationSeconds,
     private _startDate: number,
     private _areaWidth: number,
     private _areaHeight: number,
     private _gameSpeed: SpeedType,
-    private _points?: number,
     private _status?: GameStatusType,
     private _endDate?: number,
     private _gameDuration?: number,
     private _shotCount?: number
   ) {
+    this.endDate = this.endDate ? this.endDate : 0;
+    this.gameDuration = this.gameDuration ? this.gameDuration : 0;
+    this.shotCount = this.shotCount ? this.shotCount : 0;
+  }
+
+  get maxShotCount(): number {
+    return this._maxShotCount;
   }
 
   get username(): string {
@@ -26,11 +34,11 @@ export class GameData {
     this._username = value;
   }
 
-  get maxGameTime(): GameDuration {
+  get maxGameTime(): GameDurationSeconds {
     return this._maxGameTime;
   }
 
-  set maxGameTime(value: GameDuration) {
+  set maxGameTime(value: GameDurationSeconds) {
     this._maxGameTime = value;
   }
 
@@ -64,14 +72,6 @@ export class GameData {
 
   set gameSpeed(value: SpeedType) {
     this._gameSpeed = value;
-  }
-
-  get points(): number {
-    return this._points;
-  }
-
-  set points(value: number) {
-    this._points = value;
   }
 
   get status(): GameStatusType {

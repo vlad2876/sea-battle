@@ -1,11 +1,14 @@
-import {ShotStatus} from "../gameplay-enums/shot-status.enum";
+import { ShotStatus } from "../gameplay-enums/shot-status.enum";
 
 export class ShotData {
   constructor(
     private _id: number,
     private _status?: ShotStatus,
     private _position?: number
-  ) { }
+  ) {
+    this.status = this.status ? this.status : ShotStatus.InProgress;
+    this.position = this.position ? this.position : 0;
+  }
 
   get id(): number {
     return this._id;

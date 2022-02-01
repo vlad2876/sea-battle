@@ -11,7 +11,10 @@ parserOptions:
 plugins:
   - '@typescript-eslint'
 rules: {
-  semi: [2, 'always'],
-  no-multiple-empty-lines: [ "error", { "max": 1, "maxEOF": 0 } ]
-
+  semi: [ 2, 'always' ],
+  no-multiple-empty-lines: [ "error", { "max": 1, "maxEOF": 0 } ],
+  object-curly-spacing: [ "error", "always", {
+    arraysInObjects: false,
+    objectsInObjects: false,
+  } ]
 }

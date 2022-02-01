@@ -1,5 +1,7 @@
-import {AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
-import {SightControlKey} from "../game-container-enums/sight-control-key.enum";
+import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { SightControlKey } from "../game-container-enums/sight-control-key.enum";
+import { SeaBattleGameService } from "../game-container-services/sea-battle-game.service";
+import { KeyCodeEnum } from "../game-container-enums/key-code.enum";
 
 @Component({
   selector: 'home-sight-area',
@@ -27,7 +29,14 @@ export class SightAreaComponent implements OnInit, AfterViewInit {
     }
   }
 
-  constructor() {
+  @HostListener('window:keyup', ['$event'])
+  makeShot(event: { code: KeyCodeEnum }) {
+    if (event.code === KeyCodeEnum.Space) {
+      this.seaBattleGameService.makeShot();
+    }
+  }
+
+  constructor(private seaBattleGameService: SeaBattleGameService) {
   }
 
   ngOnInit() {

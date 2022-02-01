@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {ShipType} from "../../game-container-enums/ship-type.enum";
+import { Component, Input, OnInit } from '@angular/core';
+import { ShipType } from "../../game-container-enums/ship-type.enum";
 
 @Component({
   selector: 'home-ship',
