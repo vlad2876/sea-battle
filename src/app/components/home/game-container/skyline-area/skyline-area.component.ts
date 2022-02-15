@@ -61,7 +61,7 @@ export class SkylineAreaComponent implements OnInit {
         this.shipDirection === ShipDirection.Right ? shipElement.style.left = `${0 - shipElement.offsetWidth}px` :
           shipElement.style.left = `${this.skylineAreaWidth + shipElement.offsetWidth}px`;
         this.shipMovementAnimation(shipElement, shipId);
-      }, 1);
+      }, 0);
     });
   }
 }
