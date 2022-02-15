@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {SeaBattleGameService} from "../game-container-services/sea-battle-game.service";
+import { Component, OnInit } from '@angular/core';
+import { SeaBattleGameService } from "../game-container-services/sea-battle-game.service";
 
 @Component({
   selector: 'home-sea-area',

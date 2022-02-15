@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {SeaBattleGameService} from "../game-container-services/sea-battle-game.service";
-import {SpeedType} from "../../../../gameplay-enums/speed-type.enum";
-import {GameStatusType} from "../../../../gameplay-enums/status-type.enum";
+import { Component, OnInit } from '@angular/core';
+import { SeaBattleGameService } from "../game-container-services/sea-battle-game.service";
+import { SpeedType } from "../../../../gameplay-enums/speed-type.enum";
+import { GameStatusType } from "../../../../gameplay-enums/status-type.enum";
 
 @Component({
   selector: 'game-panel',
@@ -19,10 +19,10 @@ export class HeaderPanelComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.seaBattleGameService.score.subscribe(v => this.score = v);
-    this.seaBattleGameService.shotRemaining.subscribe(v => this.shotRemaining = v);
-    this.seaBattleGameService.timer.subscribe(v => this.timer = v);
-    this.seaBattleGameService.speed.subscribe(v => this.speed = SpeedType[v]);
-    this.seaBattleGameService.status.subscribe(v => this.status = GameStatusType[v]);
+    this.seaBattleGameService.score.subscribe(score => this.score = score);
+    this.seaBattleGameService.shotRemaining.subscribe(shotRemaining => this.shotRemaining = shotRemaining);
+    this.seaBattleGameService.timer.subscribe(timer => this.timer = timer);
+    this.seaBattleGameService.speed.subscribe(speed => this.speed = SpeedType[speed]);
+    this.seaBattleGameService.status.subscribe(status => this.status = GameStatusType[status]);
   }
 }

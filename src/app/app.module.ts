@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
 import { AboutComponent } from './components/about/about.component';
-import {RouterModule, Routes} from "@angular/router";
+import { RouterModule, Routes } from "@angular/router";
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { SeaAreaComponent } from './components/home/game-container/sea-area/sea-area.component';
 import { ShipComponent } from './components/home/game-container/skyline-area/ship/ship.component';
@@ -15,15 +15,15 @@ import { SightComponent } from './components/home/game-container/sight-area/sigh
 import { GameContainerComponent } from './components/home/game-container/game-container.component';
 import { SkylineAreaComponent } from './components/home/game-container/skyline-area/skyline-area.component';
 import { SightAreaComponent } from './components/home/game-container/sight-area/sight-area.component';
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {SeaBattleGameService} from "./components/home/game-container/game-container-services/sea-battle-game.service";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { SeaBattleGameService } from "./components/home/game-container/game-container-services/sea-battle-game.service";
 import { HeaderPanelComponent } from './components/home/game-container/header-panel/header-panel.component';
 
 const appRoutes: Routes = [
-  {path: '', component: HomeComponent},
-  {path: 'stats', component: StatisticsComponent},
-  {path: 'about', component: AboutComponent},
-  {path: '**', component: NotFoundComponent},
+  { path: '', component: HomeComponent },
+  { path: 'stats', component: StatisticsComponent },
+  { path: 'about', component: AboutComponent },
+  { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({

@@ -1,4 +1,4 @@
-import {ShotData} from "./ShotData";
+import { ShotData } from "./ShotData";
 
 export class SeaBattleShot {
   constructor(private _shotData: ShotData) { }

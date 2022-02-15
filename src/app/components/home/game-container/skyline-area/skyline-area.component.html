@@ -1,8 +1,6 @@
-<div class="skyline-area">
-  <home-ship [@shipMovementRight]="shipMovementState"
-             [ngClass]="{'ship__image_big': ship.type === ShipType.BigShip, 'ship__image_small': ship.type === ShipType.SmallShip}"
-             [ship]="ship" *ngIf="shipDirection === ShipDirection.Right"></home-ship>
-  <home-ship [@shipMovementLeft]="shipMovementState"
-             [ngClass]="{'ship__image_big': ship.type === ShipType.BigShip, 'ship__image_small': ship.type === ShipType.SmallShip}"
-             [ship]="ship" *ngIf="shipDirection === ShipDirection.Left"></home-ship>
+<div id="skyline-area">
+  <home-ship
+    id="ship"
+    [ngClass]="{'ship__image_big': ship.type === ShipType.BigShip, 'ship__image_small': ship.type === ShipType.SmallShip}"
+    [ship]="ship" *ngIf="ship"></home-ship>
 </div>

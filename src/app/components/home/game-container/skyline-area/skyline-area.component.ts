@@ -1,45 +1,67 @@
-import {Component, OnInit} from '@angular/core';
-import {ShipType} from "../game-container-enums/ship-type.enum";
-import {Ship} from "./ship/ship.component";
-import {animate, state, style, transition, trigger} from "@angular/animations";
-import {ShipState} from "../game-container-enums/ship-state.enum";
-import {SeaBattleGameService} from "../game-container-services/sea-battle-game.service";
-import {ShipDirection} from "../../../../gameplay-enums/ship-direction.enum";
+import { Component, OnInit } from '@angular/core';
+import { ShipType } from "../game-container-enums/ship-type.enum";
+import { animate, AnimationBuilder, style } from "@angular/animations";
+import { ShipDirection } from "../../../../gameplay-enums/ship-direction.enum";
+import { SeaBattleGameService } from "../game-container-services/sea-battle-game.service";
+import { Ship } from "./ship/ship.component";
+import { ShipStatus } from "../../../../gameplay-enums/ship-status.enum";
 
 @Component({
   selector: 'home-skyline-area',
   templateUrl: './skyline-area.component.html',
-  styleUrls: ['./skyline-area.component.sass'],
-  animations: [
-    trigger('shipMovementRight', [
-      state('start', style({left: -210})),
-      state('end', style({left: 1050})),
-      transition('start => end', animate('5s')),
-    ]),
-    trigger('shipMovementLeft', [
-      state('start', style({left: 1050})),
-      state('end', style({left: -210})),
-      transition('start => end', animate('5s'))
-    ])
-  ]
+  styleUrls: ['./skyline-area.component.sass']
 })
 export class SkylineAreaComponent implements OnInit {
   ShipType = ShipType;
-  ShipDirection = ShipDirection;
 
   ship: Ship;
 
-  shipDirection: ShipDirection;
-  shipMovementState = ShipState.Start;
+  shipDirection: ShipDirection = ShipDirection.Right;
+  shipId = 1;
+  shipAnimationTime = 5000;
+  skylineAreaWidth: number;
 
-  constructor(private seaBattleGameService: SeaBattleGameService) {
+  constructor(
+    private seaBattleGameService: SeaBattleGameService,
+    private builder: AnimationBuilder
+  ) { }
+
+  shipMovementAnimation(shipElement: HTMLElement, id: number) {
+    const shipMovementRight = this.builder.build([
+      style({ left: `${shipElement.style.left}` }),
+      animate(this.shipAnimationTime, style({ left: `${this.skylineAreaWidth + shipElement.offsetWidth}px` }))
+    ]);
+    const shipMovementLeft = this.builder.build([
+      style({ left: `${shipElement.style.left}` }),
+      animate(this.shipAnimationTime, style({ left: `${0 - shipElement.offsetWidth}px` }))
+    ]);
+
+    const shipAnimationPlayer = this.shipDirection === ShipDirection.Right ? shipMovementRight.create(shipElement) :
+      shipMovementLeft.create(shipElement);
+
+      shipAnimationPlayer.play();
+
+      shipAnimationPlayer.onDone(() => {
+        this.seaBattleGameService.setShipPosition(shipElement.offsetLeft, id);
+        this.seaBattleGameService.setShipStatus(ShipStatus.SwimAway, id);
+      });
+
+    this.shipId++;
   }
 
   ngOnInit() {
-    this.seaBattleGameService.shipAnimationState.subscribe(v => this.shipMovementState = v);
-    this.seaBattleGameService.nextShip.subscribe(v => {
-      this.ship = {id: 1, type: v, destroyed: false};
+    this.seaBattleGameService.shipDirection.subscribe(shipDirection => this.shipDirection = shipDirection);
+    this.seaBattleGameService.nextShip.subscribe(shipType => {
+      this.ship = { id: this.shipId, type: shipType, destroyed: false };
     });
-    this.seaBattleGameService.shipDirection.subscribe(v => this.shipDirection = v);
+    this.seaBattleGameService.shipAnimation.subscribe(shipId => {
+      setTimeout(() => {
+       const shipElement: HTMLElement = document.querySelector('#ship');
+        this.skylineAreaWidth = document.getElementById('skyline-area').offsetWidth;
+        this.shipDirection === ShipDirection.Right ? shipElement.style.left = `${0 - shipElement.offsetWidth}px` :
+          shipElement.style.left = `${this.skylineAreaWidth + shipElement.offsetWidth}px`;
+        this.shipMovementAnimation(shipElement, shipId);
+      }, 1);
+    });
   }
 }

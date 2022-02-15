@@ -1,22 +1,31 @@
-import {ShipStatus} from "../gameplay-enums/ship-status.enum";
-import {ShipDirection} from "../gameplay-enums/ship-direction.enum";
-import {ShipType} from "../components/home/game-container/game-container-enums/ship-type.enum";
+import { ShipStatus } from "../gameplay-enums/ship-status.enum";
+import { ShipDirection } from "../gameplay-enums/ship-direction.enum";
+import { ShipType } from "../components/home/game-container/game-container-enums/ship-type.enum";
 
 export class ShipData {
   constructor(
+    private _id: number,
     private _direction: ShipDirection,
     private _type: ShipType,
-    private _leftIndent?: number,
+    private _position?: number,
     private _status?: ShipStatus
   ) {
   }
 
-  get leftIndent(): number {
-    return this._leftIndent;
+  get id(): number {
+    return this._id;
   }
 
-  set leftIndent(value: number) {
-    this._leftIndent = value;
+  set id(value: number) {
+    this._id = value;
+  }
+
+  get position(): number {
+    return this._position;
+  }
+
+  set position(value: number) {
+    this._position = value;
   }
 
   get status(): ShipStatus {

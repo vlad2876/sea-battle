@@ -1,4 +1,4 @@
-import {SightData} from "./SightData";
+import { SightData } from "./SightData";
 
 export class SeaBattleSight {
   constructor(private _sightData: SightData) {

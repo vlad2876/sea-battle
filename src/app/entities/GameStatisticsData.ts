@@ -1,5 +1,5 @@
-import {GameStatusType} from "../gameplay-enums/status-type.enum";
-import {SpeedType} from "../gameplay-enums/speed-type.enum";
+import { GameStatusType } from "../gameplay-enums/status-type.enum";
+import { SpeedType } from "../gameplay-enums/speed-type.enum";
 
 export interface GameStatisticsData {
   username: string,

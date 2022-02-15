@@ -1,10 +1,9 @@
-import {GameStatusType} from "../gameplay-enums/status-type.enum";
-import {GameDuration} from "../gameplay-enums/game-duration.enum";
-import {SpeedType} from "../gameplay-enums/speed-type.enum";
-import {BehaviorSubject, Subject} from "rxjs";
-import {ShipType} from "../components/home/game-container/game-container-enums/ship-type.enum";
-import {ShipState} from "../components/home/game-container/game-container-enums/ship-state.enum";
-import {ShipDirection} from "../gameplay-enums/ship-direction.enum";
+import { GameStatusType } from "../gameplay-enums/status-type.enum";
+import { GameDuration } from "../gameplay-enums/game-duration.enum";
+import { SpeedType } from "../gameplay-enums/speed-type.enum";
+import { BehaviorSubject, Subject } from "rxjs";
+import { ShipType } from "../components/home/game-container/game-container-enums/ship-type.enum";
+import { ShipDirection } from "../gameplay-enums/ship-direction.enum";
 
 export class GameData {
   private readonly _maxShotCount = 10;
@@ -16,7 +15,7 @@ export class GameData {
   private _selectedSpeed = new BehaviorSubject(this.gameSpeed);
   private _gameStatus = new BehaviorSubject(GameStatusType.InProgress);
   private _shotAnimation = new Subject<number>();
-  private _shipAnimationState = new Subject<ShipState>();
+  private _shipAnimation = new Subject<number>();
   private _shipDirection = new Subject<ShipDirection>();
 
   constructor(
@@ -68,8 +67,8 @@ export class GameData {
     return this._shotAnimation;
   }
 
-  get shipAnimationState(): Subject<ShipState> {
-    return this._shipAnimationState;
+  get shipAnimation(): Subject<number> {
+    return this._shipAnimation;
   }
 
   get shipDirection(): Subject<ShipDirection> {

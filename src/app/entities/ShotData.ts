@@ -1,4 +1,4 @@
-import {ShotStatus} from "../gameplay-enums/shot-status.enum";
+import { ShotStatus } from "../gameplay-enums/shot-status.enum";
 
 export class ShotData {
   constructor(

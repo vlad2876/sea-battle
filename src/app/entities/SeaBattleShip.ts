@@ -1,9 +1,9 @@
-import {ShipData} from "./ShipData";
-import {ShipStatus} from "../gameplay-enums/ship-status.enum";
+import { ShipData } from "./ShipData";
+import { ShipStatus } from "../gameplay-enums/ship-status.enum";
 
 export class SeaBattleShip {
   constructor(private _shipData: ShipData) {
-    _shipData.leftIndent = _shipData.leftIndent ? _shipData.leftIndent : 0;
+    _shipData.position = _shipData.position ? _shipData.position : 0;
     _shipData.status = _shipData.status ? _shipData.status : ShipStatus.Swims;
   }
 
