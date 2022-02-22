@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SeaAreaComponent } from './sea-area.component';
+import { HeaderPanelComponent } from './header-panel.component';
 
-describe('SeaAreaComponent', () => {
-  let component: SeaAreaComponent;
-  let fixture: ComponentFixture<SeaAreaComponent>;
+describe('HeaderPanelComponent', () => {
+  let component: HeaderPanelComponent;
+  let fixture: ComponentFixture<HeaderPanelComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SeaAreaComponent ]
+      declarations: [ HeaderPanelComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SeaAreaComponent);
+    fixture = TestBed.createComponent(HeaderPanelComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

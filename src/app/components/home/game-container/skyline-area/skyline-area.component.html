@@ -1,4 +1,6 @@
-<div class="skyline-area">
-  <home-ship class="big-ship" [ship]="bigShip"></home-ship>
-  <home-ship class="ship__ship-image_small" [ship]="smallShip"></home-ship>
+<div id="skyline-area">
+  <home-ship
+    id="ship"
+    [ngClass]="{'ship__image_big': ship.type === ShipType.BigShip, 'ship__image_small': ship.type === ShipType.SmallShip}"
+    [ship]="ship" *ngIf="ship"></home-ship>
 </div>

@@ -1,5 +1,5 @@
 export enum GameDuration {
-  Slow = 60000,
-  Normal = 45000,
-  Fast = 30000
+  Slow = 60,
+  Normal = 45,
+  Fast = 30
 }

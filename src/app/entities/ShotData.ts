@@ -1,11 +1,15 @@
-import {ShotStatus} from "../gameplay-enums/shot-status.enum";
+import { ShotStatus } from "../gameplay-enums/shot-status.enum";
 
 export class ShotData {
   constructor(
     private _id: number,
-    private _status?: ShotStatus,
-    private _position?: number
-  ) { }
+    private _columnIndex: number,
+    private _rowIndex?: number,
+    private _status?: ShotStatus
+  ) {
+    this.status = this.status ? this.status : ShotStatus.InProgress;
+    this.rowIndex = this.rowIndex ? this.rowIndex : 9;
+  }
 
   get id(): number {
     return this._id;
@@ -23,11 +27,19 @@ export class ShotData {
     this._status = value;
   }
 
-  get position(): number {
-    return this._position;
+  get columnIndex(): number {
+    return this._columnIndex;
   }
 
-  set position(value: number) {
-    this._position = value;
+  set columnIndex(value: number) {
+    this._columnIndex = value;
+  }
+
+  get rowIndex(): number {
+    return this._rowIndex;
+  }
+
+  set rowIndex(value: number) {
+    this._rowIndex = value;
   }
 }

@@ -1,15 +1,15 @@
-import {ShotStatus} from "../gameplay-enums/shot-status.enum";
-import {ShotData} from "./ShotData";
+import { ShotData } from "./ShotData";
 
 export class SeaBattleShot {
-  constructor(private shotData: ShotData) {
-    shotData.status = shotData.status ? shotData.status : ShotStatus.InProgress;
-    shotData.position = shotData.position ? shotData.position : 0;
-  }
+  constructor(private _shotData: ShotData) { }
 
   makeShot() {
   }
 
   completeShot() {
+  }
+
+  get shotData(): ShotData {
+    return this._shotData;
   }
 }

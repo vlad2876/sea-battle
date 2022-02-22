@@ -1,39 +1,75 @@
-import {Component, OnInit} from '@angular/core';
-import {ShipType} from "../game-container-enums/ship-type.enum";
-import {Ship} from "./ship/ship.component";
-import {animate, state, style, transition, trigger} from "@angular/animations";
-import {ShipState} from "../game-container-enums/ship-state.enum";
+import { Component, OnInit } from '@angular/core';
+import { ShipType } from "../game-container-enums/ship-type.enum";
+import { animate, AnimationBuilder, style } from "@angular/animations";
+import { ShipDirection } from "../../../../gameplay-enums/ship-direction.enum";
+import { SeaBattleGameService } from "../game-container-services/sea-battle-game.service";
+import { Ship } from "./ship/ship.component";
+import { ShipStatus } from "../../../../gameplay-enums/ship-status.enum";
 
 @Component({
   selector: 'home-skyline-area',
   templateUrl: './skyline-area.component.html',
-  styleUrls: ['./skyline-area.component.sass'],
-  animations: [
-    trigger('shipMovement', [
-      state('start', style({left: -210})),
-      state('end', style({left: 1050})),
-      transition('start => end', animate('5s'))
-    ])
-  ]
+  styleUrls: ['./skyline-area.component.sass']
 })
 export class SkylineAreaComponent implements OnInit {
-  bigShip: Ship = {id: 1, type: ShipType.BigShip, destroyed: false};
-  smallShip: Ship = {id: 2, type: ShipType.SmallShip, destroyed: false};
+  ShipType = ShipType;
 
-  shipMovementInterval = 5200;
-  stateChangeTimeout = 5100;
-  shipMovementState = ShipState.Start;
+  ship: Ship;
 
-  shipMovementAnimation = setInterval(() => {
-    this.shipMovementState = ShipState.End;
-    setTimeout(() => {
-      this.shipMovementState = ShipState.Start;
-    }, this.stateChangeTimeout);
-  }, this.shipMovementInterval);
+  shipDirection: ShipDirection = ShipDirection.Right;
+  shipId = 1;
+  shipAnimationTime = 5000;
+  skylineAreaWidth: number;
 
-  constructor() {
+  constructor(
+    private seaBattleGameService: SeaBattleGameService,
+    private builder: AnimationBuilder
+  ) {
+  }
+
+  shipMovementAnimation(shipElement: HTMLElement, id: number) {
+    const shipMovementRight = this.builder.build([
+      style({ left: `${shipElement.style.left}` }),
+      animate(this.shipAnimationTime, style({ left: `${this.skylineAreaWidth + shipElement.offsetWidth}px` }))
+    ]);
+    const shipMovementLeft = this.builder.build([
+      style({ left: `${shipElement.style.left}` }),
+      animate(this.shipAnimationTime, style({ left: `${0 - shipElement.offsetWidth}px` }))
+    ]);
+
+    const shipAnimationPlayer = this.shipDirection === ShipDirection.Right ? shipMovementRight.create(shipElement) :
+      shipMovementLeft.create(shipElement);
+
+    shipAnimationPlayer.play();
+
+    shipAnimationPlayer.onDone(() => {
+      this.seaBattleGameService.setShipPosition(shipElement.offsetLeft, id);
+      this.seaBattleGameService.setShipStatus(ShipStatus.SwimAway, id);
+    });
+
+    setInterval(() => {
+      this.seaBattleGameService.shipOffsetLeft = shipElement.offsetLeft;
+    }, 1);
+
+    this.shipId++;
   }
 
   ngOnInit() {
+    const skylineArea = document.getElementById('skyline-area');
+    this.seaBattleGameService.skylineAreaOffsetLeft = skylineArea.offsetLeft;
+    this.skylineAreaWidth = skylineArea.offsetWidth;
+    console.log(skylineArea.offsetLeft);
+    this.seaBattleGameService.shipDirection.subscribe(shipDirection => this.shipDirection = shipDirection);
+    this.seaBattleGameService.nextShip.subscribe(shipType => {
+      this.ship = { id: this.shipId, type: shipType, destroyed: false };
+    });
+    this.seaBattleGameService.shipAnimation.subscribe(shipId => {
+      setTimeout(() => {
+        const shipElement: HTMLElement = document.querySelector('#ship');
+        this.shipDirection === ShipDirection.Right ? shipElement.style.left = `${0 - shipElement.offsetWidth}px` :
+          shipElement.style.left = `${this.skylineAreaWidth + shipElement.offsetWidth}px`;
+        this.shipMovementAnimation(shipElement, shipId);
+      }, 0);
+    });
   }
 }

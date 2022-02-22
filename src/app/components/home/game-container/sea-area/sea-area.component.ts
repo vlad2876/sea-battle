@@ -1,40 +1,39 @@
-import {Component, HostListener, OnInit} from '@angular/core';
-import {KeyCodeEnum} from "../game-container-enums/key-code.enum";
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { SeaBattleGameService } from "../game-container-services/sea-battle-game.service";
 
 @Component({
   selector: 'home-sea-area',
   templateUrl: './sea-area.component.html',
-  styleUrls: ['./sea-area.component.sass']
+  styleUrls: ['./sea-area.component.sass'],
 })
-export class SeaAreaComponent implements OnInit {
-  rowsCount = 10;
-  columnsCount = 15;
-  shotTime = 120;
-
+export class SeaAreaComponent implements OnInit, AfterViewInit {
   seaAreaCells: SeaAreaCell[][] = [];
 
-  readonly activeColumnIndex: number = 7;
+  private rowsCount = 10;
+  private columnsCount = 15;
+  private shotTime = 120;
 
-  @HostListener('window:keyup', ['$event'])
-  shotAnimation(event: { code: KeyCodeEnum }) {
-    if (event.code === KeyCodeEnum.Space) {
-      let activeRowIndex: number = this.rowsCount - 1;
-      const shotInterval = setInterval(() => {
-        if (activeRowIndex > -1) {
-          this.seaAreaCells[activeRowIndex][this.activeColumnIndex].active = true;
-        }
-        if (activeRowIndex < this.rowsCount - 1) {
-          this.seaAreaCells[activeRowIndex + 1][this.activeColumnIndex].active = false;
-        }
-        if (activeRowIndex === -1) {
-          clearInterval(shotInterval);
-        }
-        activeRowIndex--;
-      }, this.shotTime);
-    }
+  shotAnimation(id: number) {
+    let activeRowIndex = this.seaBattleGameService.shots.find(shot => shot.shotData.id === id).shotData.rowIndex;
+    const activeColumnIndex = this.seaBattleGameService.shots.find(shot => shot.shotData.id === id).shotData.columnIndex;
+
+    const shotInterval = setInterval(() => {
+
+      if (activeRowIndex > -1) {
+        this.seaAreaCells[activeRowIndex][activeColumnIndex].active = true;
+      }
+      if (activeRowIndex < this.rowsCount - 1) {
+        this.seaAreaCells[activeRowIndex + 1][activeColumnIndex].active = false;
+      }
+      if (activeRowIndex === -1) {
+        this.seaBattleGameService.completeShot(id);
+        clearInterval(shotInterval);
+      }
+      this.seaBattleGameService.setShotPosition(activeRowIndex--, id);
+    }, this.shotTime);
   }
 
-  constructor() {
+  constructor(private seaBattleGameService: SeaBattleGameService) {
   }
 
   ngOnInit() {
@@ -44,11 +43,16 @@ export class SeaAreaComponent implements OnInit {
         this.seaAreaCells[i][j] = new SeaAreaCell(false);
       }
     }
+    this.seaBattleGameService.shotAnimation.subscribe(v => this.shotAnimation(v));
+  }
+
+  ngAfterViewInit() {
+    const cellElement: HTMLElement = document.querySelector('.game-area__cell');
+    this.seaBattleGameService.seaAreaCellWidth = cellElement.offsetWidth;
   }
 }
 
 export class SeaAreaCell {
-
   active: boolean;
 
   constructor(active: boolean) {
