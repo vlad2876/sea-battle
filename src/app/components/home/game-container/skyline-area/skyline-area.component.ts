@@ -24,7 +24,8 @@ export class SkylineAreaComponent implements OnInit {
   constructor(
     private seaBattleGameService: SeaBattleGameService,
     private builder: AnimationBuilder
-  ) { }
+  ) {
+  }
 
   shipMovementAnimation(shipElement: HTMLElement, id: number) {
     const shipMovementRight = this.builder.build([
@@ -39,25 +40,32 @@ export class SkylineAreaComponent implements OnInit {
     const shipAnimationPlayer = this.shipDirection === ShipDirection.Right ? shipMovementRight.create(shipElement) :
       shipMovementLeft.create(shipElement);
 
-      shipAnimationPlayer.play();
+    shipAnimationPlayer.play();
 
-      shipAnimationPlayer.onDone(() => {
-        this.seaBattleGameService.setShipPosition(shipElement.offsetLeft, id);
-        this.seaBattleGameService.setShipStatus(ShipStatus.SwimAway, id);
-      });
+    shipAnimationPlayer.onDone(() => {
+      this.seaBattleGameService.setShipPosition(shipElement.offsetLeft, id);
+      this.seaBattleGameService.setShipStatus(ShipStatus.SwimAway, id);
+    });
+
+    setInterval(() => {
+      this.seaBattleGameService.shipOffsetLeft = shipElement.offsetLeft;
+    }, 1);
 
     this.shipId++;
   }
 
   ngOnInit() {
+    const skylineArea = document.getElementById('skyline-area');
+    this.seaBattleGameService.skylineAreaOffsetLeft = skylineArea.offsetLeft;
+    this.skylineAreaWidth = skylineArea.offsetWidth;
+    console.log(skylineArea.offsetLeft);
     this.seaBattleGameService.shipDirection.subscribe(shipDirection => this.shipDirection = shipDirection);
     this.seaBattleGameService.nextShip.subscribe(shipType => {
       this.ship = { id: this.shipId, type: shipType, destroyed: false };
     });
     this.seaBattleGameService.shipAnimation.subscribe(shipId => {
       setTimeout(() => {
-       const shipElement: HTMLElement = document.querySelector('#ship');
-        this.skylineAreaWidth = document.getElementById('skyline-area').offsetWidth;
+        const shipElement: HTMLElement = document.querySelector('#ship');
         this.shipDirection === ShipDirection.Right ? shipElement.style.left = `${0 - shipElement.offsetWidth}px` :
           shipElement.style.left = `${this.skylineAreaWidth + shipElement.offsetWidth}px`;
         this.shipMovementAnimation(shipElement, shipId);

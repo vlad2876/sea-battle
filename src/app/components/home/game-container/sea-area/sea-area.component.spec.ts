@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SeaAreaComponent } from './sea-area.component';
 
-describe('FieldComponent', () => {
+describe('SeaAreaComponent', () => {
   let component: SeaAreaComponent;
   let fixture: ComponentFixture<SeaAreaComponent>;
 

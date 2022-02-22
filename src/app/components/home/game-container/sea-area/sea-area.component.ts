@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { SeaBattleGameService } from "../game-container-services/sea-battle-game.service";
 
 @Component({
@@ -6,7 +6,7 @@ import { SeaBattleGameService } from "../game-container-services/sea-battle-game
   templateUrl: './sea-area.component.html',
   styleUrls: ['./sea-area.component.sass'],
 })
-export class SeaAreaComponent implements OnInit {
+export class SeaAreaComponent implements OnInit, AfterViewInit {
   seaAreaCells: SeaAreaCell[][] = [];
 
   private rowsCount = 10;
@@ -26,6 +26,7 @@ export class SeaAreaComponent implements OnInit {
         this.seaAreaCells[activeRowIndex + 1][activeColumnIndex].active = false;
       }
       if (activeRowIndex === -1) {
+        this.seaBattleGameService.completeShot(id);
         clearInterval(shotInterval);
       }
       this.seaBattleGameService.setShotPosition(activeRowIndex--, id);
@@ -43,6 +44,11 @@ export class SeaAreaComponent implements OnInit {
       }
     }
     this.seaBattleGameService.shotAnimation.subscribe(v => this.shotAnimation(v));
+  }
+
+  ngAfterViewInit() {
+    const cellElement: HTMLElement = document.querySelector('.game-area__cell');
+    this.seaBattleGameService.seaAreaCellWidth = cellElement.offsetWidth;
   }
 }
 

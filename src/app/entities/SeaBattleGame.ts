@@ -22,7 +22,7 @@ export class SeaBattleGame {
   shipAnimation = this.gameData.shipAnimation.asObservable();
   shipDirection = this.gameData.shipDirection.asObservable();
 
-  private ships: SeaBattleShip[] = [];
+  private _ships: SeaBattleShip[] = [];
   private _shots: SeaBattleShot[] = [];
   private sight = new SeaBattleSight(new SightData());
 
@@ -74,11 +74,11 @@ export class SeaBattleGame {
   }
 
   setShipPosition(position: number, id: number) {
-    this.ships.find(ship => ship.shipData.id === id).shipData.position = position;
+    this._ships.find(ship => ship.shipData.id === id).shipData.position = position;
   }
 
   setShipStatus(status: ShipStatus, id: number) {
-    this.ships.find(ship => ship.shipData.id === id).shipData.status = status;
+    this._ships.find(ship => ship.shipData.id === id).shipData.status = status;
   }
 
   setShotPosition(position: number, id: number) {
@@ -92,8 +92,8 @@ export class SeaBattleGame {
     return this._shots;
   }
 
-  set shots(value: SeaBattleShot[]) {
-    this._shots = value;
+  get ships(): SeaBattleShip[] {
+    return this._ships;
   }
 
   private runNewShip() {
@@ -102,14 +102,14 @@ export class SeaBattleGame {
     setInterval(() => {
       this.shipDirection.pipe(take(1)).subscribe(direction => {
         this.nextShip.pipe(take(1)).subscribe(type => {
-          this.ships.push(new SeaBattleShip(new ShipData(shipId, direction, type)));
+          this._ships.push(new SeaBattleShip(new ShipData(shipId, direction, type)));
         });
       });
       this.gameData.shipDirection.next(Math.floor(Math.random() * 2) === 0 ? ShipDirection.Right : ShipDirection.Left);
       this.gameData.nextShip.next(Math.floor(Math.random() * 2) === 0 ? ShipType.BigShip : ShipType.SmallShip);
       this.gameData.shipAnimation.next(shipId);
       shipId++;
-      console.log(this.ships);
+      console.log(this._ships);
     }, this.shipAnimationInterval);
   }
 

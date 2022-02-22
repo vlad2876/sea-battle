@@ -6,9 +6,10 @@ import { SeaBattleShot } from "../../../../entities/SeaBattleShot";
 import { ShotData } from "../../../../entities/ShotData";
 import { Subject } from "rxjs";
 import { ShipStatus } from "../../../../gameplay-enums/ship-status.enum";
+import { SeaBattleShip } from "../../../../entities/SeaBattleShip";
 
 export class SeaBattleGameService {
-  private game = new SeaBattleGame(new GameData('abc', GameDuration.Slow, 0, 0, 0, SpeedType.Slow));
+  private game: SeaBattleGame = new SeaBattleGame(new GameData('abc', GameDuration.Slow, 0, 0, 0, SpeedType.Slow));
 
   nextShip = this.game.nextShip;
   score = this.game.score;
@@ -22,7 +23,11 @@ export class SeaBattleGameService {
 
   private _sightLeftIndent: number;
   private _shots = this.game.shots;
+  private _ships = this.game.ships;
   private _shotId = 1;
+  private _skylineAreaOffsetLeft: number;
+  private _shipOffsetLeft: number;
+  private _seaAreaCellWidth: number;
 
   makeShot() {
     if (this._shots.length < 10) {
@@ -61,11 +66,21 @@ export class SeaBattleGameService {
   }
 
   completeShot(id: number) {
-    this.game.completeShot(id);
+    const shipLeftIndent = this._shipOffsetLeft - this._skylineAreaOffsetLeft;
+    const currentShotColumn = this.shots.find(shot => shot.shotData.id === id).shotData.columnIndex;
+
+    if (currentShotColumn === Math.floor(shipLeftIndent / this._seaAreaCellWidth)) {
+      console.log('Hit');
+      this.game.completeShot(id);
+    }
   }
 
   get shots(): SeaBattleShot[] {
     return this._shots;
+  }
+
+  get ships(): SeaBattleShip[] {
+    return this._ships;
   }
 
   get sightLeftIndent(): number {
@@ -74,5 +89,17 @@ export class SeaBattleGameService {
 
   set sightLeftIndent(value: number) {
     this._sightLeftIndent = value;
+  }
+
+  set shipOffsetLeft(value: number) {
+    this._shipOffsetLeft = value;
+  }
+
+  set skylineAreaOffsetLeft(value: number) {
+    this._skylineAreaOffsetLeft = value;
+  }
+
+  set seaAreaCellWidth(value: number) {
+    this._seaAreaCellWidth = value;
   }
 }
