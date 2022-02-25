@@ -5,6 +5,9 @@ import { SeaBattleGame } from "../../../../entities/SeaBattleGame";
 describe('SeaBattleGameService', () => {
   let service: SeaBattleGameService;
 
+  let currentShotColumn: number | undefined;
+  let currentShipPosition: number | undefined;
+
   const fakeSeaBattleGame = {
     completeShot: jasmine.createSpy('completeShot'),
     get shots(): number {
@@ -20,27 +23,42 @@ describe('SeaBattleGameService', () => {
     });
 
     service = TestBed.inject(SeaBattleGameService);
+
+    spyOnProperty(fakeSeaBattleGame, 'shots', 'get').and.returnValue(0);
+
+    currentShotColumn = fakeSeaBattleGame.shots;
+    currentShipPosition = undefined;
+
+    spyOn(service, 'completeShot').and.callFake(() => {
+      if (currentShotColumn === currentShipPosition) {
+        fakeSeaBattleGame.completeShot(1);
+      }
+    });
+    fakeSeaBattleGame.completeShot.calls.reset();
   });
 
   it('should create', () => {
     expect(service).toBeTruthy();
   });
 
-  describe(' the completeShot method', () => {
+  fdescribe('completeShot method', () => {
+    it('should call the SeaBattleGame method completeShot, when ship position is equal to current shot column', () => {
+      currentShipPosition = 0;
 
-    it('should call the SeaBattleGame completeShot method, when ship position equals to current shot column', () => {
-      spyOnProperty(fakeSeaBattleGame, 'shots', 'get').and.returnValue(0);
-
-      const currentShotColumn = fakeSeaBattleGame.shots;
-      const currentShipPosition = 0;
-
-      spyOn(service, 'completeShot').and.callFake(() => {
-        if (currentShotColumn === currentShipPosition) {
-          fakeSeaBattleGame.completeShot(1);
-        }
-      });
       service.completeShot(1);
       expect(fakeSeaBattleGame.completeShot).toHaveBeenCalled();
+    });
+
+    it('should not call the SeaBattleGame method completeShot, when ship position is not equal to current shot column', () => {
+      currentShipPosition = 1;
+
+      service.completeShot(1);
+      expect(fakeSeaBattleGame.completeShot).not.toHaveBeenCalled();
+    });
+
+    it('should not call the SeaBattleGame method completeShot, when ship has not yet appeared', () => {
+      service.completeShot(1);
+      expect(fakeSeaBattleGame.completeShot).not.toHaveBeenCalled();
     });
   });
 });
