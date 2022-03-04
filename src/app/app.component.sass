@@ -1,25 +1,14 @@
-@mixin font
-  font-family: 'Oxygen', sans-serif
-  font-size: 20px
-  font-weight: bold
+@import "styles/colors"
 
-nav
-  background: #24252A
+.navbar
+  background: $nav-color
   text-align: center
-  li, a
-    @include font
+
+  .nav-list, .route
     margin: 10px 15px
-    color: white
+    color: $route-text
     text-decoration: none
     display: inline-block
+
     &:hover
-      color: #A9B4C4
-
-
-
-
-
-
-
-
-
+      color: $route-hover
